@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>DEWAN PENGGALANG SMPIT PERMATA MOJOKERTO</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;font-family:"Poppins",sans-serif}
+  body{background:linear-gradient(135deg,#f7c768 0%,#8a69d6 100%);color:#333;min-height:100vh}
+  /* NAV & HERO sama seperti kode kamu */
+  nav{position:fixed;top:0;right:0;padding:1.5rem;z-index:1000}
+  .menu-toggle{background:rgba(255,255,255,.9);border:none;padding:1rem;border-radius:50%;cursor:pointer;transition:.3s}
+  .menu-toggle:hover{transform:scale(1.1)}
+  .nav-menu{position:fixed;top:0;right:-300px;width:300px;height:100vh;background:#fff;transition:right .3s;padding:2rem;box-shadow:-2px 0 10px rgba(0,0,0,.1)}
+  .nav-menu.active{right:0}
+  .nav-menu ul{list-style:none;margin-top:3rem}
+  .nav-menu li{margin:1.5rem 0}
+  .nav-menu a{text-decoration:none;color:#333;font-size:1.2rem;font-weight:500;cursor:pointer}
+  .nav-menu a:hover{color:#667eea}
+  .close-menu{position:absolute;top:1rem;right:1rem;background:0 0;border:none;font-size:2rem;color:#666;cursor:pointer}
+
+  .hero{text-align:center;padding:8rem 2rem 4rem;color:#fff;display:flex;flex-direction:column;justify-content:center;min-height:100vh}
+  .hero h1{font-size:3.5rem;margin-bottom:1rem;animation:fadeInUp 1s}
+  .hero p{font-size:1.3rem;opacity:.9;animation:fadeInUp 1s .3s both}
+
+  .content-section{display:none;max-width:1200px;margin:0 auto;padding:6rem 2rem 2rem}
+  .content-section.active{display:block;animation:fadeIn .5s}
+  .divisions-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(350px,1fr));gap:2rem;margin-top:2rem}
+  .division-card{background:#f09c00;border-radius:20px;padding:2rem;box-shadow:0 10px 30px rgba(0,0,0,.1);transition:.3s;cursor:pointer}
+  .division-card:hover{transform:translateY(-5px);box-shadow:0 15px 40px rgba(0,0,0,.15)}
+  .division-card h3{color:#ffffff;margin-bottom:1rem}
+  .division-card img{width:100%;height:200px;object-fit:cover;border-radius:10px;margin-bottom:1rem}
+
+  .modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.8);z-index:2000;align-items:center;justify-content:center}
+  .modal-content{background:#fff;border-radius:20px;padding:2rem;max-width:600px;max-height:80vh;overflow-y:auto}
+  .close{position:absolute;top:1rem;right:1.5rem;font-size:2rem;cursor:pointer;color:#999}
+  .member-list{list-style:none;margin-top:1rem}
+  .member-list li{padding:.5rem 0;border-bottom:1px solid #eee}
+  .coordinator{font-weight:600;color:#667eea}
+
+  .contact-section{background:#fff;padding:3rem 2rem;margin-top:2rem;border-radius:20px;text-align:center}
+  .contact-links{display:flex;justify-content:center;gap:2rem;flex-wrap:wrap}
+  .contact-item{display:flex;align-items:center;gap:.5rem;padding:1rem 2rem;background:#f8f9fa;border-radius:50px;text-decoration:none;color:#333;transition:.3s}
+  .contact-item:hover{transform:translateY(-3px);box-shadow:0 5px 15px rgba(0,0,0,.1)}
+  .contact-item i{font-size:1.5rem;color:#667eea}
+
+  @keyframes fadeInUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+  @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+  @keyframes slideIn{from{transform:translateY(-50px);opacity:0}to{transform:translateY(0);opacity:1}}
+  @media (max-width:768px){.hero h1{font-size:2.5rem}.divisions-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav>
+  <button class="menu-toggle" onclick="toggleMenu()"><i class="fas fa-bars"></i></button>
+  <div class="nav-menu" id="navMenu">
+    <button class="close-menu" onclick="toggleMenu()">&times;</button>
+    <ul>
+      <li><a onclick="showSection('beranda');toggleMenu()">Beranda</a></li>
+      <li><a onclick="showSection('struktur');toggleMenu()">Struktur</a></li>
+      <li><a onclick="showSection('berita');toggleMenu()">Berita DP</a></li>
+      <li><a onclick="showSection('event');toggleMenu()">Event List</a></li>
+      <li><a onclick="showSection('kontak');toggleMenu()">Kontak</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- Beranda -->
+<div id="beranda" class="content-section active">
+  <div class="hero">
+  <div style="display:flex; justify-content:center; gap:40px; align-items:center; flex-wrap:wrap;">
+    <img src="https://images.unsplash.com/photo-1754658440841-2a9a81219c59?w=500" alt="Logo Sparta Scout" style="width:150px; height:auto; border-radius:10px;">
+    <img src="https://images.unsplash.com/photo-1754743146290-949a949c422f?w=500" alt="Logo SMPIT Permata" style="width:150px; height:auto; border-radius:10px;">
+  </div>
+  <h1>Selamat Datang di DEWAN PENGGALANG SMPIT PERMATA MOJOKERTO</h1>
+  <p>Website Resmi Dewan Penggalang – SMPIT Permata Mojokerto</p>
+</div>
+  <div style="max-width:1200px;margin:0 auto;padding: 0 2rem 4rem">
+    <div class="divisions-grid">
+      <!-- 8 kartu divisi -->
+      <div class="division-card" onclick="openModal('bph')">
+        <img src="https://images.unsplash.com/photo-1754658440841-2a9a81219c59?w=500" alt="BPH">
+        <h3>BADAN PENGURUS HARIAN (BPH)</h3>
+      </div>
+      <div class="division-card" onclick="openModal('teknik')">
+        <img src="https://images.unsplash.com/photo-1754658440841-2a9a81219c59?w=500" alt="Teknik">
+        <h3>DIVISI TEKNIK KEPRAMUKAAN</h3>
+      </div>
+      <div class="division-card" onclick="openModal('upacara')">
+        <img src="https://images.unsplash.com/photo-1754658440841-2a9a81219c59?w=500" alt="Upacara">
+        <h3>DIVISI UPACARA</h3>
+      </div>
+      <div class="division-card" onclick="openModal('perlengkapan')">
+        <img src="https://images.unsplash.com/photo-1754658440841-2a9a81219c59?w=500" alt="Perlengkapan">
+        <h3>DIVISI PERLENGKAPAN</h3>
+      </div>
+      <div class="division-card" onclick="openModal('dokumentasi')">
+        <img src="https://images.unsplash.com/photo-1754658440841-2a9a81219c59?w=500" alt="Dokumentasi">
+        <h3>DIVISI DOKUMENTASI</h3>
+      </div>
+      <div class="division-card" onclick="openModal('entrepreneur')">
+        <img src="https://images.unsplash.com/photo-1754658440841-2a9a81219c59?w=500" alt="Entrepreneur">
+        <h3>DIVISI ENTREPRENEUR</h3>
+      </div>
+      <div class="division-card" onclick="openModal('seni')">
+        <img src="https://images.unsplash.com/photo-1754658440841-2a9a81219c59?w=500" alt="Seni">
+        <h3>DIVISI SENI & BUDAYA</h3>
+      </div>
+      <div class="division-card" onclick="openModal('kesra')">
+        <img src="https://images.unsplash.com/photo-1754658440841-2a9a81219c59?w=500" alt="Kesra">
+        <h3>DIVISI KESRA</h3>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Struktur -->
+<div id="struktur" class="content-section">
+  <h2 style="text-align:center;color:#fff;margin-bottom:2rem">STRUKTUR ORGANISASI</h2>
+  <div style="max-width:1200px;margin:0 auto;padding:0 2rem">
+    <!-- ulangi 8 kartu divisi tetapi tanpa gambar -->
+    <div class="divisions-grid">
+      <div class="division-card" onclick="openModal('bph')"><h3>BPH</h3></div>
+      <div class="division-card" onclick="openModal('teknik')"><h3>Teknik Kepramukaan</h3></div>
+      <div class="division-card" onclick="openModal('upacara')"><h3>Upacara</h3></div>
+      <div class="division-card" onclick="openModal('perlengkapan')"><h3>Perlengkapan</h3></div>
+      <div class="division-card" onclick="openModal('dokumentasi')"><h3>Dokumentasi</h3></div>
+      <div class="division-card" onclick="openModal('entrepreneur')"><h3>Entrepreneur</h3></div>
+      <div class="division-card" onclick="openModal('seni')"><h3>Seni & Budaya</h3></div>
+      <div class="division-card" onclick="openModal('kesra')"><h3>Kesra</h3></div>
+    </div>
+  </div>
+</div>
+
+<!-- Berita -->
+<div id="berita" class="content-section">
+  <div style="background:#fff;padding:3rem;border-radius:20px;margin:2rem;text-align:center">
+    <img src="https://images.unsplash.com/photo-1755263771373-9e49d060947e?w=500"
+    margin-bottom: 1rem;>
+     <h2 style="color:#667eea;margin-bottom:1rem">BERITA DEWAN PENGGALANG</h2>
+    <p style="color:#666;font-size:1.2rem">FOTO BERSAMA SETELAH MELAKSANAKAN UPACARA HARI PRAMUKA
+  </div>
+</div>
+
+<!-- Event -->
+<div id="event" class="content-section">
+  <div class="event-list" style="background:#fff;padding:2rem;border-radius:20px;margin:2rem">
+    <h2>EVENT LIST</h2>
+    <ul style="list-style:none;padding-left:1rem">
+      <li>• PERINGATAN HARI PRAMUKA 14 AGUSTUS 2025
+      <li>• 
+      <li>• 
+      <li>• 
+      <li>• 
+    </ul>
+  </div>
+</div>
+
+<!-- Kontak -->
+<div id="kontak" class="content-section">
+  <div class="contact-section">
+    <h2>KONTAK KAMI</h2>
+    <div class="contact-links">
+      <a href="https://www.instagram.com/spartascouting" class="contact-item" target="_blank"><i class="fab fa-instagram"></i><span>@spartascouting</span></a>
+      <a href="https://wa.me/6281234567890" class="contact-item" target="_blank"><i class="fab fa-whatsapp"></i><span>+62 812-3456-7890</span></a>
+    </div>
+    <p style="margin-top:2rem;color:#666">Jl. Tropodo NO 685, Mergelo,kec.magersari,kota mojokerto, Jawa Timur 61315</p>
+  </div>
+</div>
+
+<!-- Modal -->
+<div id="modal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <div id="modal-body"></div>
+  </div>
+</div>
+
+<script>
+const data = {
+  bph: [
+    '1. KETUA PUTRA : Rafiansyah Devano Yussafandi/9B',
+    '2. SEKRETARIS PUTRA : Aqilla Sefa P. / 9A',
+    '3. BENDAHARA PUTRA : Ghufronul Musta\'an/9A',
+    '4. KETUA PUTRI : Azaria Wulan Ardiningrum/9D',
+    '5. SEKRETARIS PUTRI : Aubrey Akilah Prameswari/9D',
+    '6. BENDAHARA PUTRI : Najwa Elya Azmil Rahmany/9C',
+    'Dalam konteks organisasi Dewan Penggalang, BPH adalah singkatan dari Badan Pengurus Harian. BPH adalah inti dari kepengurusan dewan penggalang, yang bertanggung jawab atas pelaksanaan kegiatan sehari-hari dan operasional organisasi sesuai dengan arahan dan kebijakan yang telah ditetapkan' 
+  ],
+  teknik: [
+    '1. Daffina Karina Noer Zahira/9C <span class="co">(Co)</span>',
+    '2. Clarissa Radya Almahyra/9D',
+    '3. Khalisha Widyanto/9D',
+    '4. Aisyah Putri Az Zahrah/9D',
+    '5. Ayu Zhahirah Mutiara Saemina/9C',
+    '6. Ferlita Aurel Putri Ramadhani/9C',
+    '7. Vidyah Kurnia Pramudha Wardhani/8C',
+    '8. Afiqa Abelia mustafa/8D',
+    '9. Farhah/8D',
+    '10. Nabila Ilkhata Tsauqina/8C',
+    '-Teknik Kepramukaan di Dewan Penggalang meliputi:',
+    'Pioneering – membuat konstruksi dari tongkat & tali',
+    'Semaphore & Morse – komunikasi sandi bendera & titik-garis',
+    'Tali-Temali – menguasai simpul untuk berbagai keperluan',
+    'Kompas & Peta – navigasi dan orientasi medan',
+    'Pertolongan Pertama – penanganan darurat cedera/sakit',
+    'Berkemah – kemandirian di alam terbuka',
+    'Sandi & Kode Rahasia – melatih logika & ketelitian',
+    'Upacara & Baris-Berbaris – disiplin dan kekompakan',
+    'Teknik-teknik ini melatih keterampilan, kerja sama, dan kepemimpinan anggota.'
+
+  ],
+  upacara: [
+    '1. Zahra Aqila An Nabila/9D <span class="co">(Co)</span>',
+    '2. Iman A./8B',
+    '3. Landra Alcarenza Sandryant/8B',
+    '4. Alya Husna Ramadhani/8D',
+    '5. Shafiyya Kamil/8C',
+    '6. Hafna Ilmy Muhalla/8D',
+    '7. Azka Fatimah Azzahra/8D',
+    '8. Nadhira Izza Wahidah/8C',
+    '-Teknik Kepramukaan Divisi Upacara di Dewan Penggalang meliputi:',
+    'Tata Upacara – memahami susunan acara, komando, dan tata penghormatan',
+    'Baris-Berbaris – formasi, pergerakan, dan kekompakan pasukan',
+    'Pengibaran & Penurunan Bendera – teknik membawa, mengikat, dan mengibarkan bendera',
+    'Fokusnya adalah disiplin, kekompakan, dan kehormatan.'
+  ],
+  perlengkapan: [
+    '1. Joevano F.A. /9B <span class="co">(Co)</span>',
+    '2. Hugo Puzzle/9 A',
+    '3. Juna Esa Al Fajr Sanjaya/8B',
+    '4. Muhammad Asyam Al Ahnaf/8B',
+    '5. Kaffa Rizky Qiyamullail/8A',
+    '6. Ibadurrahman /8A',
+    '7. Umar Zahid Ahmad/8A',
+    '8. Muhammad Ali Fathir Asykarillah/8A',
+    '9. M. Dzakwan/8B',
+    '-Teknik Kepramukaan Divisi Perlengkapan di Dewan Penggalang meliputi:',
+    'Inventarisasi – mencatat dan mengelola daftar perlengkapan',
+    'Pemeliharaan – membersihkan, memperbaiki, dan menyimpan perlengkapan agar awet',
+    'Distribusi – menyiapkan dan membagikan peralatan saat kegiatan',
+    'Penyimpanan – menata peralatan di gudang atau tempat penyimpanan',
+    'Pengadaan – mengusulkan pembelian atau perbaikan barang yang diperlukan',
+    'Fokusnya adalah keteraturan, tanggung jawab, dan kesiapan perlengkapan.'
+
+  ],
+  dokumentasi: [
+    '1. Raihanah Zulfa Kusuma Wardani/9D <span class="co">(Co)</span>',
+    '2. Naurah Majidah Harjadi/9C',
+    '3. Nathania Amira Fakhrunnisa /9D',
+    '4. Farah Rizwana Firdausiah /8D',
+    '5. Nabila Hasya Muttaqin/8C',
+    '6. Hilma Tsabita/8C',
+    '7. Raisa El Udzma Famuji/8C',
+    '8. Azita Kayyisah Kiani /8C',
+    '9. irana Aulia Azkadina/8C',
+    '-Teknik Kepramukaan Divisi Dokumentasi di Dewan Penggalang meliputi:',
+    'Videografi – merekam video dokumentasi kegiatan',
+    'Pengarsipan – menyimpan foto, video, dan catatan kegiatan dengan rapi',
+    'Publikasi – mengunggah hasil dokumentasi ke media sosial atau mading',
+    'Fokusnya adalah mengabadikan momen, menyimpan kenangan, dan membagikan informasi.'
+
+  ],
+  entrepreneur: [
+    '1. Salma Hayaa Nayla Putri/9D <span class="co">(Co)</span>',
+    '2. Farah Saniyatul Hamdiyyah AZ Zahraa\'/9D',
+    '3. Naura Syifa/9D',
+    '4. Muthi\'ah Amirah/8C',
+    '5. Vondra Janitra Maulida Diningrat/8D',
+    '6. Syasya Sabrina Azalia Putri/8D',
+    '7. Kharidah Asshilah Husna Setyawan /8C',
+    '-Teknik Kepramukaan Divisi Entrepreneur di Dewan Penggalang meliputi:',
+    'Perencanaan Usaha – menentukan ide, target, dan strategi penjualan.',
+    'Produksi – membuat produk atau menyiapkan jasa yang akan dijual.',
+    'Pemasaran – mempromosikan produk melalui media sosial, poster, atau penawaran langsung.',
+    'Fokusnya adalah kreativitas, kemandirian, dan keterampilan wirausaha.'
+  ],
+  seni: [
+    '1. Anindya Shareen Qysteena/9D <span class="co">(Co)</span>',
+    '2. Naura Kayyasa Rahmah/9D',
+    '3. Naurah Adini / 9C',
+    '4. Efelina Shifa Morlibraco/8C',
+    '5. Najma Shabira Felisia/8D',
+    '6. Cantika Aprilia Putri/8C',
+    '-Teknik Kepramukaan Divisi Seni di Dewan Penggalang meliputi:',
+    'Musik & Vokal – memainkan alat musik, menyanyi solo atau paduan suara.',
+    'Dekorasi – menghias panggung, tenda, atau area kegiatan.',
+    'Fokusnya adalah mengekspresikan kreativitas, menghibur, dan memperindah suasana kegiatan.'
+  ],
+  kesra: [
+    '1. Qonitatillah Rahmanto/9D <span class="co">(Co)</span>',
+    '2. Shofiyah Muthi\'atur Rosyidah/9C',
+    '3. Almirah Mikha Callista Putri/9C',
+    '4. Aqila Mozza Nafisah/9D',
+    '5. Mufidah Tazkiyatur Rohmah/8D',
+    '6. Khayla Almira Maritza/8C',
+    '-Teknik Kepramukaan Divisi Kesra di Dewan Penggalang meliputi:',
+    'Konsumsi – menyiapkan makanan dan minuman saat kegiatan.',
+    'Kesehatan (menyiapkan P3K, memastikan peserta sehat dan aman)',
+    'Kenyamanan (menata tempat, memastikan semua anggota merasa diperhatikan)',
+    'Di Dewan Penggalang, divisi Kesra biasanya singkatan dari Kesejahteraan Rakyat.Tugasnya berhubungan dengan pemenuhan kebutuhan dan kenyamanan anggota saat kegiatan berlangsung.'
+  ]
+};
+
+function toggleMenu() {
+  document.getElementById('navMenu').classList.toggle('active');
+}
+function showSection(id) {
+  document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0, 0);
+}
+function openModal(key) {
+  const modal = document.getElementById('modal');
+  const mb = document.getElementById('modal-body');
+  const titles = {
+    bph:'Badan Pengurus Harian',
+    teknik:'Divisi Teknik Kepramukaan',
+    upacara:'Divisi Upacara',
+    perlengkapan:'Divisi Perlengkapan',
+    dokumentasi:'Divisi Dokumentasi',
+    entrepreneur:'Divisi Entrepreneur',
+    seni:'Divisi Seni & Budaya',
+    kesra:'Divisi Kesra'
+  };
+  mb.innerHTML = `<h3>${titles[key]}</h3><ul class="member-list">${data[key].map(m=>`<li>${m}</li>`).join('')}</ul>`;
+  modal.style.display='flex';
+}
+function closeModal(){document.getElementById('modal').style.display='none';}
+window.onclick = e => e.target === document.getElementById('modal') && closeModal();
+</script>
+</body>
+</html>
