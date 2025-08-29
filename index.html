@@ -1,353 +1,877 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<title>DEWAN PENGGALANG SMPIT PERMATA MOJOKERTO</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-<style>
-  *{margin:0;padding:0;box-sizing:border-box;font-family:"Poppins",sans-serif}
-  body{background:linear-gradient(135deg,#f7c768 0%,#8a69d6 100%);color:#333;min-height:100vh}
-  /* NAV & HERO sama seperti kode kamu */
-  nav{position:fixed;top:0;right:0;padding:1.5rem;z-index:1000}
-  .menu-toggle{background:rgba(255,255,255,.9);border:none;padding:1rem;border-radius:50%;cursor:pointer;transition:.3s}
-  .menu-toggle:hover{transform:scale(1.1)}
-  .nav-menu{position:fixed;top:0;right:-300px;width:300px;height:100vh;background:#fff;transition:right .3s;padding:2rem;box-shadow:-2px 0 10px rgba(0,0,0,.1)}
-  .nav-menu.active{right:0}
-  .nav-menu ul{list-style:none;margin-top:3rem}
-  .nav-menu li{margin:1.5rem 0}
-  .nav-menu a{text-decoration:none;color:#333;font-size:1.2rem;font-weight:500;cursor:pointer}
-  .nav-menu a:hover{color:#667eea}
-  .close-menu{position:absolute;top:1rem;right:1rem;background:0 0;border:none;font-size:2rem;color:#666;cursor:pointer}
-
-  .hero{text-align:center;padding:8rem 2rem 4rem;color:#fff;display:flex;flex-direction:column;justify-content:center;min-height:100vh}
-  .hero h1{font-size:3.5rem;margin-bottom:1rem;animation:fadeInUp 1s}
-  .hero p{font-size:1.3rem;opacity:.9;animation:fadeInUp 1s .3s both}
-
-  .content-section{display:none;max-width:1200px;margin:0 auto;padding:6rem 2rem 2rem}
-  .content-section.active{display:block;animation:fadeIn .5s}
-  .divisions-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(350px,1fr));gap:2rem;margin-top:2rem}
-  .division-card{background:#f09c00;border-radius:20px;padding:2rem;box-shadow:0 10px 30px rgba(0,0,0,.1);transition:.3s;cursor:pointer}
-  .division-card:hover{transform:translateY(-5px);box-shadow:0 15px 40px rgba(0,0,0,.15)}
-  .division-card h3{color:#ffffff;margin-bottom:1rem}
-  .division-card img{width:100%;height:200px;object-fit:cover;border-radius:10px;margin-bottom:1rem}
-
-  .modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.8);z-index:2000;align-items:center;justify-content:center}
-  .modal-content{background:#fff;border-radius:20px;padding:2rem;max-width:600px;max-height:80vh;overflow-y:auto}
-  .close{position:absolute;top:1rem;right:1.5rem;font-size:2rem;cursor:pointer;color:#999}
-  .member-list{list-style:none;margin-top:1rem}
-  .member-list li{padding:.5rem 0;border-bottom:1px solid #eee}
-  .coordinator{font-weight:600;color:#667eea}
-
-  .contact-section{background:#fff;padding:3rem 2rem;margin-top:2rem;border-radius:20px;text-align:center}
-  .contact-links{display:flex;justify-content:center;gap:2rem;flex-wrap:wrap}
-  .contact-item{display:flex;align-items:center;gap:.5rem;padding:1rem 2rem;background:#f8f9fa;border-radius:50px;text-decoration:none;color:#333;transition:.3s}
-  .contact-item:hover{transform:translateY(-3px);box-shadow:0 5px 15px rgba(0,0,0,.1)}
-  .contact-item i{font-size:1.5rem;color:#667eea}
-
-  @keyframes fadeInUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
-  @keyframes fadeIn{from{opacity:0}to{opacity:1}}
-  @keyframes slideIn{from{transform:translateY(-50px);opacity:0}to{transform:translateY(0);opacity:1}}
-  @media (max-width:768px){.hero h1{font-size:2.5rem}.divisions-grid{grid-template-columns:1fr}}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dewan Penggalang SMPIT PERMATA Mojokerto</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .active {
+            color: #d97706;
+            font-weight: 600;
+        }
+        .hero {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1755263771373-9e49d060947e?w=500');
+            background-size: cover;
+            background-position: center;
+        }
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        .transition-all {
+            transition: all 0.3s ease;
+        }
+    </style>
 </head>
-<body>
-
-<!-- Navigation -->
-<nav>
-  <button class="menu-toggle" onclick="toggleMenu()"><i class="fas fa-bars"></i></button>
-  <div class="nav-menu" id="navMenu">
-    <button class="close-menu" onclick="toggleMenu()">&times;</button>
-    <ul>
-      <li><a onclick="showSection('beranda');toggleMenu()">Beranda</a></li>
-      <li><a onclick="showSection('struktur');toggleMenu()">Struktur</a></li>
-      <li><a onclick="showSection('berita');toggleMenu()">Berita DP</a></li>
-      <li><a onclick="showSection('event');toggleMenu()">Event List</a></li>
-      <li><a onclick="showSection('kontak');toggleMenu()">Kontak</a></li>
-    </ul>
-  </div>
-</nav>
-
-<!-- Beranda -->
-<div id="beranda" class="content-section active">
-  <div class="hero">
-  <div style="display:flex; justify-content:center; gap:40px; align-items:center; flex-wrap:wrap;">
-    <img src="https://images.unsplash.com/photo-1756298243047-12d8aecb407f?w=500" alt="Logo Sparta Scout" style="width:150px; height:auto; border-radius:10px;">
-    <img src="https://images.unsplash.com/photo-1754743146290-949a949c422f?w=500" alt="Logo SMPIT Permata" style="width:150px; height:auto; border-radius:10px;">
-  </div>
-  <h1>Selamat Datang di DEWAN PENGGALANG SMPIT PERMATA MOJOKERTO</h1>
-  <p>Website Resmi Dewan Penggalang – SMPIT Permata Mojokerto</p>
-</div>
-  <div style="max-width:1200px;margin:0 auto;padding: 0 2rem 4rem">
-    <div class="divisions-grid">
-      <!-- 8 kartu divisi -->
-      <div class="division-card" onclick="openModal('bph')">
-        <img src="https://images.unsplash.com/photo-1756298243047-12d8aecb407f?w=500" alt="BPH">
-        <h3>BADAN PENGURUS HARIAN (BPH)</h3>
-      </div>
-      <div class="division-card" onclick="openModal('teknik')">
-        <img src="https://images.unsplash.com/photo-1756298243047-12d8aecb407f?w=500" alt="Teknik">
-        <h3>DIVISI TEKNIK KEPRAMUKAAN</h3>
-      </div>
-      <div class="division-card" onclick="openModal('upacara')">
-        <img src="https://images.unsplash.com/photo-1756298243047-12d8aecb407f?w=500" alt="Upacara">
-        <h3>DIVISI UPACARA</h3>
-      </div>
-      <div class="division-card" onclick="openModal('perlengkapan')">
-        <img src="https://images.unsplash.com/photo-1756298243047-12d8aecb407f?w=500" alt="Perlengkapan">
-        <h3>DIVISI PERLENGKAPAN</h3>
-      </div>
-      <div class="division-card" onclick="openModal('dokumentasi')">
-        <img src="https://images.unsplash.com/photo-1756298243047-12d8aecb407f?w=500" alt="Dokumentasi">
-        <h3>DIVISI DOKUMENTASI</h3>
-      </div>
-      <div class="division-card" onclick="openModal('entrepreneur')">
-        <img src="https://images.unsplash.com/photo-1756298243047-12d8aecb407f?w=500" alt="Entrepreneur">
-        <h3>DIVISI ENTREPRENEUR</h3>
-      </div>
-      <div class="division-card" onclick="openModal('seni')">
-        <img src="https://images.unsplash.com/photo-1756298243047-12d8aecb407f?w=500" alt="Seni">
-        <h3>DIVISI SENI & BUDAYA</h3>
-      </div>
-      <div class="division-card" onclick="openModal('kesra')">
-        <img src="https://images.unsplash.com/photo-1756298243047-12d8aecb407f?w=500" alt="Kesra">
-        <h3>DIVISI KESRA</h3>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Struktur -->
-<div id="struktur" class="content-section">
-  <h2 style="text-align:center;color:#fff;margin-bottom:2rem">STRUKTUR ORGANISASI</h2>
-  <div style="max-width:1200px;margin:0 auto;padding:0 2rem">
-    <!-- ulangi 8 kartu divisi tetapi tanpa gambar -->
-    <div class="divisions-grid">
-      <div class="division-card" onclick="openModal('bph')"><h3>BPH</h3></div>
-      <div class="division-card" onclick="openModal('teknik')"><h3>Teknik Kepramukaan</h3></div>
-      <div class="division-card" onclick="openModal('upacara')"><h3>Upacara</h3></div>
-      <div class="division-card" onclick="openModal('perlengkapan')"><h3>Perlengkapan</h3></div>
-      <div class="division-card" onclick="openModal('dokumentasi')"><h3>Dokumentasi</h3></div>
-      <div class="division-card" onclick="openModal('entrepreneur')"><h3>Entrepreneur</h3></div>
-      <div class="division-card" onclick="openModal('seni')"><h3>Seni & Budaya</h3></div>
-      <div class="division-card" onclick="openModal('kesra')"><h3>Kesra</h3></div>
-    </div>
-  </div>
-</div>
-
-<!-- Berita -->
-<div id="berita" class="content-section">
-  <div style="background:#fff;padding:3rem;border-radius:20px;margin:2rem;text-align:center">
-    <h2 style="color:#667eea;margin-bottom:1rem">BERITA DEWAN PENGGALANG</h2> 
-    <img src="https://images.unsplash.com/photo-1755263771373-9e49d060947e?w=500"alt=FOTO
-     style="width: 100%; height: auto; border-radius: 20px; margin-bottom: 1.2rem;">
-    <p style="color:#666;font-size:1.2rem">FOTO BERSAMA SETELAH MELAKSANAKAN UPACARA HARI PRAMUKA
-  </div>
-</div>
-
-<!-- Event -->
-<div id="event" class="content-section">
-  <div class="event-list" style="background:#fff;padding:2rem;border-radius:20px;margin:2rem">
-    <h2>EVENT LIST</h2>
-    <ul style="list-style:none;padding-left:1rem">
-      <li>• PERINGATAN HARI PRAMUKA 14 AGUSTUS 2025
-      <li>• 
-      <li>• 
-      <li>• 
-      <li>• 
-    </ul>
-  </div>
-</div>
-
-<!-- Kontak -->
-<div id="kontak" class="content-section">
-  <div class="contact-section">
-    <h2>KONTAK KAMI</h2>
-    <div class="contact-links">
-        <a href="instagram://user?username=spartascouting"
-   onclick="window.location='https://www.instagram.com/spartascouting'"
-   
-           class="contact-item fab fa-instagram"></i> IG : SPARTA SCOUTING</a>    
-      <a href="https://wa.me/6285852084287"  
-   onclick="window.location='https://wa.me/6285852084287'"
-   style="background-color:#25D366; color:white; padding:10px 0px; border-radius:50px; text-decoration:none; display:inline-block;">
-   <i class="fab fa-whatsapp"></i> Hubungi via WhatsApp 
-        <div style="text-align:center;">
-        <a href="https://ngl.link/dewanpenggalang2"
-          onclick="window.location='https://ngl.link/dewanpenggalang2'"
-          style="background-color:#e80ff0; color:rgb(235, 127, 199); padding:10px 100px; border-radius:50px; text-decoration:none; display:inline-block; text-align:center;"
-          class="contact-item fab fa-ngl"></i><strong><span style="color:white;"> SARAN DAN KRITIK </span></storng>
-        </a>
+<body class="bg-amber-50 font-sans">
+    <!-- Header -->
+    <header class="bg-green-800 text-white sticky top-0 z-50 shadow-md">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center">
+                <img src="https://images.unsplash.com/photo-1756298243047-12d8aecb407f?w=500" alt="Logo SMPIT PERMATA" class="h-12 mr-3">
+                <h1 class="text-xl font-bold">Dewan Penggalang SMPIT PERMATA</h1>
+            </div>
+            <nav class="hidden md:block">
+                <ul class="flex space-x-6">
+                    <li><a href="#home" class="nav-link hover:text-amber-300 transition-all" data-page="home">Home</a></li>
+                    <li><a href="#berita" class="nav-link hover:text-amber-300 transition-all" data-page="berita">Berita</a></li>
+                    <li><a href="#event" class="nav-link hover:text-amber-300 transition-all" data-page="event">Event</a></li>
+                    <li><a href="#divisi" class="nav-link hover:text-amber-300 transition-all" data-page="divisi">Divisi</a></li>
+                    <li><a href="#kontak" class="nav-link hover:text-amber-300 transition-all" data-page="kontak">Kontak</a></li>
+                </ul>
+            </nav>
+            <button class="md:hidden text-2xl" id="mobile-menu-button">
+                <i class="fas fa-bars"></i>
+            </button>
         </div>
-       
-      
-        
-    </div>
-    <p style="margin-top:2rem;color:#666">Jl. Tropodo NO 685, Mergelo,kec.magersari,kota mojokerto, Jawa Timur 61315</p>
-  </div>
-</div>
+        <!-- Mobile Menu -->
+        <div class="md:hidden hidden bg-green-900" id="mobile-menu">
+            <ul class="flex flex-col space-y-3 p-4">
+                <li><a href="#home" class="nav-link block hover:text-amber-300 transition-all" data-page="home">Home</a></li>
+                <li><a href="#berita" class="nav-link block hover:text-amber-300 transition-all" data-page="berita">Berita</a></li>
+                <li><a href="#event" class="nav-link block hover:text-amber-300 transition-all" data-page="event">Event</a></li>
+                <li><a href="#divisi" class="nav-link block hover:text-amber-300 transition-all" data-page="divisi">Divisi</a></li>
+                <li><a href="#kontak" class="nav-link block hover:text-amber-300 transition-all" data-page="kontak">Kontak</a></li>
+            </ul>
+        </div>
+    </header>
 
-<!-- Modal -->
-<div id="modal" class="modal">
-  <div class="modal-content">
-    <span class="close" onclick="closeModal()">&times;</span>
-    <div id="modal-body"></div>
-  </div>
-</div>
+    <!-- Main Content -->
+    <main>
+        <!-- Home Page -->
+        <section id="home-page" class="page">
+            <!-- Hero Section -->
+            <div class="hero h-96 flex items-center justify-center text-center text-white">
+                <div class="px-4">
+                    <h1 class="text-4xl md:text-5xl font-bold mb-4">Selamat Datang di Website Resmi Dewan Penggalang SMPIT PERMATA Mojokerto</h1>
+                    <p class="text-xl md:text-2xl">Membentuk Generasi Pramuka yang Berkarakter dan Berprestasi</p>
+                </div>
+            </div>
 
-<script>
-const data = {
-  bph: [
-    '1. KETUA PUTRA : Rafiansyah Devano Yussafandi/9B',
-    '2. SEKRETARIS PUTRA : Aqilla Sefa P. / 9A',
-    '3. BENDAHARA PUTRA : Ghufronul Musta\'an/9A',
-    '4. KETUA PUTRI : Azaria Wulan Ardiningrum/9D',
-    '5. SEKRETARIS PUTRI : Aubrey Akilah Prameswari/9D',
-    '6. BENDAHARA PUTRI : Najwa Elya Azmil Rahmany/9C',
-    'Dalam konteks organisasi Dewan Penggalang, BPH adalah singkatan dari Badan Pengurus Harian. BPH adalah inti dari kepengurusan dewan penggalang, yang bertanggung jawab atas pelaksanaan kegiatan sehari-hari dan operasional organisasi sesuai dengan arahan dan kebijakan yang telah ditetapkan' 
-  ],
-  teknik: [
-    '1. Daffina Karina Noer Zahira/9C <span class="co">(Co)</span>',
-    '2. Clarissa Radya Almahyra/9D',
-    '3. Khalisha Widyanto/9D',
-    '4. Aisyah Putri Az Zahrah/9D',
-    '5. Ayu Zhahirah Mutiara Saemina/9C',
-    '6. Ferlita Aurel Putri Ramadhani/9C',
-    '7. Vidyah Kurnia Pramudha Wardhani/8C',
-    '8. Afiqa Abelia mustafa/8D',
-    '9. Farhah/8D',
-    '10. Nabila Ilkhata Tsauqina/8C',
-    '-Teknik Kepramukaan di Dewan Penggalang meliputi:',
-    'Pioneering – membuat konstruksi dari tongkat & tali',
-    'Semaphore & Morse – komunikasi sandi bendera & titik-garis',
-    'Tali-Temali – menguasai simpul untuk berbagai keperluan',
-    'Kompas & Peta – navigasi dan orientasi medan',
-    'Pertolongan Pertama – penanganan darurat cedera/sakit',
-    'Berkemah – kemandirian di alam terbuka',
-    'Sandi & Kode Rahasia – melatih logika & ketelitian',
-    'Upacara & Baris-Berbaris – disiplin dan kekompakan',
-    'Teknik-teknik ini melatih keterampilan, kerja sama, dan kepemimpinan anggota.'
+            <!-- Profile Section -->
+            <div class="container mx-auto px-4 py-12">
+                <div class="max-w-4xl mx-auto bg-white rounded-lg shadow-lg p-6 md:p-8">
+                    <h2 class="text-2xl md:text-3xl font-bold text-green-800 mb-6 text-center">Profil Dewan Penggalang</h2>
+                    <div class="grid md:grid-cols-2 gap-8 items-center">
+                        <div>
+                            <p class="text-gray-700 mb-4">Dewan Penggalang SMPIT PERMATA Mojokerto adalah organisasi intra sekolah yang bertanggung jawab dalam mengkoordinasikan kegiatan kepramukaan di sekolah kami.</p>
+                            <p class="text-gray-700 mb-4">Kami berkomitmen untuk membentuk karakter siswa melalui nilai-nilai kepramukaan seperti disiplin, mandiri, kreatif, dan bertanggung jawab.</p>
+                            <p class="text-gray-700">Dengan berbagai program dan kegiatan, kami berupaya menciptakan generasi muda yang berakhlak mulia, berprestasi, dan bermanfaat bagi masyarakat.</p>
+                        </div>
+                        <div class="flex justify-center">
+                            <img src="https://images.unsplash.com/photo-1756470068808-a5d7622d1daf?w=500" alt="Kegiatan Pramuka" class="rounded-lg shadow-md w-full max-w-md">
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-  ],
-  upacara: [
-    '1. Zahra Aqila An Nabila/9D <span class="co">(Co)</span>',
-    '2. Iman A./8B',
-    '3. Landra Alcarenza Sandryant/8B',
-    '4. Alya Husna Ramadhani/8D',
-    '5. Shafiyya Kamil/8C',
-    '6. Hafna Ilmy Muhalla/8D',
-    '7. Azka Fatimah Azzahra/8D',
-    '8. Nadhira Izza Wahidah/8C',
-    '-Teknik Kepramukaan Divisi Upacara di Dewan Penggalang meliputi:',
-    'Tata Upacara – memahami susunan acara, komando, dan tata penghormatan',
-    'Baris-Berbaris – formasi, pergerakan, dan kekompakan pasukan',
-    'Pengibaran & Penurunan Bendera – teknik membawa, mengikat, dan mengibarkan bendera',
-    'Fokusnya adalah disiplin, kekompakan, dan kehormatan.'
-  ],
-  perlengkapan: [
-    '1. Joevano F.A. /9B <span class="co">(Co)</span>',
-    '2. Hugo Puzzle/9 A',
-    '3. Juna Esa Al Fajr Sanjaya/8B',
-    '4. Muhammad Asyam Al Ahnaf/8B',
-    '5. Kaffa Rizky Qiyamullail/8A',
-    '6. Ibadurrahman /8A',
-    '7. Umar Zahid Ahmad/8A',
-    '8. Muhammad Ali Fathir Asykarillah/8A',
-    '9. M. Dzakwan/8B',
-    '-Teknik Kepramukaan Divisi Perlengkapan di Dewan Penggalang meliputi:',
-    'Inventarisasi – mencatat dan mengelola daftar perlengkapan',
-    'Pemeliharaan – membersihkan, memperbaiki, dan menyimpan perlengkapan agar awet',
-    'Distribusi – menyiapkan dan membagikan peralatan saat kegiatan',
-    'Penyimpanan – menata peralatan di gudang atau tempat penyimpanan',
-    'Pengadaan – mengusulkan pembelian atau perbaikan barang yang diperlukan',
-    'Fokusnya adalah keteraturan, tanggung jawab, dan kesiapan perlengkapan.'
+            <!-- Quick Info -->
+            <div class="bg-green-700 text-white py-8">
+                <div class="container mx-auto px-4">
+                    <div class="grid md:grid-cols-3 gap-6 text-center">
+                        <div class="bg-green-800 p-6 rounded-lg shadow-md">
+                            <i class="fas fa-users text-4xl mb-4 text-amber-300"></i>
+                            <h3 class="text-xl font-bold mb-2">100+ Anggota</h3>
+                            <p>Pramuka aktif dari kelas 7 hingga 9</p>
+                        </div>
+                        <div class="bg-green-800 p-6 rounded-lg shadow-md">
+                            <i class="fas fa-calendar-alt text-4xl mb-4 text-amber-300"></i>
+                            <h3 class="text-xl font-bold mb-2">10+ Kegiatan</h3>
+                            <p>Setiap tahunnya</p>
+                        </div>
+                        <div class="bg-green-800 p-6 rounded-lg shadow-md">
+                            <i class="fas fa-trophy text-4xl mb-4 text-amber-300"></i>
+                            <h3 class="text-xl font-bold mb-2">Berprestasi</h3>
+                            <p>Di berbagai event kepramukaan</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-  ],
-  dokumentasi: [
-    '1. Raihanah Zulfa Kusuma Wardani/9D <span class="co">(Co)</span>',
-    '2. Naurah Majidah Harjadi/9C',
-    '3. Nathania Amira Fakhrunnisa /9D',
-    '4. Farah Rizwana Firdausiah /8D',
-    '5. Nabila Hasya Muttaqin/8C',
-    '6. Hilma Tsabita/8C',
-    '7. Raisa El Udzma Famuji/8C',
-    '8. Azita Kayyisah Kiani /8C',
-    '9. Kirana Aulia Azkadina/8C',
-    '-Teknik Kepramukaan Divisi Dokumentasi di Dewan Penggalang meliputi:',
-    'Videografi – merekam video dokumentasi kegiatan',
-    'Pengarsipan – menyimpan foto, video, dan catatan kegiatan dengan rapi',
-    'Publikasi – mengunggah hasil dokumentasi ke media sosial atau mading',
-    'Fokusnya adalah mengabadikan momen, menyimpan kenangan, dan membagikan informasi.'
+        <!-- Berita Page -->
+        <section id="berita-page" class="page hidden">
+            <div class="container mx-auto px-4 py-12">
+                <h2 class="text-3xl font-bold text-green-800 mb-8 text-center">Berita Terbaru</h2>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Berita 1 -->
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden card-hover transition-all">
+                        <img src="https://images.unsplash.com/photo-1756470698325-276d58b7b864?w=500" alt="Berita 1" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <span class="text-sm text-gray-500">18-19 Juli 2025</span>
+                            <h3 class="text-xl font-bold text-green-800 mt-2 mb-3">Perkemahan Jum'at sabtu</h3>
+                            <p class="text-gray-700 mb-4">Alhamdulillah Dewan Penggalang SMPIT PERMATA sukses menyelenggarakan perkemahan Jum'at sabtu dengan lancar dan penuh semangat. </p>
+                        </div>
+                    </div>
 
-  ],
-  entrepreneur: [
-    '1. Salma Hayaa Nayla Putri/9D <span class="co">(Co)</span>',
-    '2. Farah Saniyatul Hamdiyyah AZ Zahraa\'/9D',
-    '3. Naura Syifa/9D',
-    '4. Muthi\'ah Amirah/8C',
-    '5. Vondra Janitra Maulida Diningrat/8D',
-    '6. Syasya Sabrina Azalia Putri/8D',
-    '7. Kharidah Asshilah Husna Setyawan /8C',
-    '-Teknik Kepramukaan Divisi Entrepreneur di Dewan Penggalang meliputi:',
-    'Perencanaan Usaha – menentukan ide, target, dan strategi penjualan.',
-    'Produksi – membuat produk atau menyiapkan jasa yang akan dijual.',
-    'Pemasaran – mempromosikan produk melalui media sosial, poster, atau penawaran langsung.',
-    'Fokusnya adalah kreativitas, kemandirian, dan keterampilan wirausaha.'
-  ],
-  seni: [
-    '1. Anindya Shareen Qysteena/9D <span class="co">(Co)</span>',
-    '2. Naura Kayyasa Rahmah/9D',
-    '3. Naurah Adini / 9C',
-    '4. Efelina Shifa Morlibraco/8C',
-    '5. Najma Shabira Felisia/8D',
-    '6. Cantika Aprilia Putri/8C',
-    '-Teknik Kepramukaan Divisi Seni di Dewan Penggalang meliputi:',
-    'Musik & Vokal – memainkan alat musik, menyanyi solo atau paduan suara.',
-    'Dekorasi – menghias panggung, tenda, atau area kegiatan.',
-    'Fokusnya adalah mengekspresikan kreativitas, menghibur, dan memperindah suasana kegiatan.'
-  ],
-  kesra: [
-    '1. Qonitatillah Rahmanto/9D <span class="co">(Co)</span>',
-    '2. Shofiyah Muthi\'atur Rosyidah/9C',
-    '3. Almirah Mikha Callista Putri/9C',
-    '4. Aqila Mozza Nafisah/9D',
-    '5. Mufidah Tazkiyatur Rohmah/8D',
-    '6. Khayla Almira Maritza/8C',
-    '-Teknik Kepramukaan Divisi Kesra di Dewan Penggalang meliputi:',
-    'Konsumsi – menyiapkan makanan dan minuman saat kegiatan.',
-    'Kesehatan (menyiapkan P3K, memastikan peserta sehat dan aman)',
-    'Kenyamanan (menata tempat, memastikan semua anggota merasa diperhatikan)',
-    'Di Dewan Penggalang, divisi Kesra biasanya singkatan dari Kesejahteraan Rakyat.Tugasnya berhubungan dengan pemenuhan kebutuhan dan kenyamanan anggota saat kegiatan berlangsung.'
-  ]
-};
+                    <!-- Berita 2 -->
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden card-hover transition-all">
+                        <img src="https://images.unsplash.com/photo-1756471471872-c212076a5049?w=500" alt="Berita 2" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <span class="text-sm text-gray-500">5-6 Agustus 2025</span>
+                            <h3 class="text-xl font-bold text-green-800 mt-2 mb-3">Juara 3 Yel Yel dan Regu terbaik se kota mojokerto</h3>
+                            <p class="text-gray-700 mb-4">Alhamdulillah Pasukan SMPIT PERMATA meraih juara 3 yel yel dan regu terbaik se kota mojokerto.</p>                          
+                        </div>
+                    </div>
 
-function toggleMenu() {
-  document.getElementById('navMenu').classList.toggle('active');
-}
-function showSection(id) {
-  document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-  window.scrollTo(0, 0);
-}
-function openModal(key) {
-  const modal = document.getElementById('modal');
-  const mb = document.getElementById('modal-body');
-  const titles = {
-    bph:'Badan Pengurus Harian',
-    teknik:'Divisi Teknik Kepramukaan',
-    upacara:'Divisi Upacara',
-    perlengkapan:'Divisi Perlengkapan',
-    dokumentasi:'Divisi Dokumentasi',
-    entrepreneur:'Divisi Entrepreneur',
-    seni:'Divisi Seni & Budaya',
-    kesra:'Divisi Kesra'
-  };
-  mb.innerHTML = `<h3>${titles[key]}</h3><ul class="member-list">${data[key].map(m=>`<li>${m}</li>`).join('')}</ul>`;
-  modal.style.display='flex';
-}
-function closeModal(){document.getElementById('modal').style.display='none';}
-window.onclick = e => e.target === document.getElementById('modal') && closeModal();
-</script>
+                    <!-- Berita 3 -->                
+                    <!-- Berita 4 -->                   
+                    <!-- Berita 5 -->
+                    <!-- Berita 6 -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Event Page -->
+        <section id="event-page" class="page hidden">
+            <div class="container mx-auto px-4 py-12">
+                <h2 class="text-3xl font-bold text-green-800 mb-8 text-center">Event Kegiatan</h2>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Event 1 -->
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden card-hover transition-all">
+                        <div class="bg-amber-600 text-white p-4 text-center">
+                            <div class="text-2xl font-bold">25</div>
+                            <div class="text-sm">Juni 2023</div>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-green-800 mb-3">Perkemahan Sabtu Minggu (Persami)</h3>
+                            <p class="text-gray-700 mb-4">Kegiatan perkemahan rutin bulanan untuk melatih kemandirian dan keterampilan kepramukaan.</p>
+                            <div class="flex items-center text-sm text-gray-500">
+                                <i class="fas fa-map-marker-alt mr-2"></i>
+                                <span>Bumi Perkemahan Gunung Penanggungan</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Event 2 -->
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden card-hover transition-all">
+                        <div class="bg-amber-600 text-white p-4 text-center">
+                            <div class="text-2xl font-bold">17</div>
+                            <div class="text-sm">Agustus 2023</div>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-green-800 mb-3">Upacara HUT RI ke-78</h3>
+                            <p class="text-gray-700 mb-4">Upacara bendera dalam rangka memperingati Hari Kemerdekaan Republik Indonesia.</p>
+                            <div class="flex items-center text-sm text-gray-500">
+                                <i class="fas fa-map-marker-alt mr-2"></i>
+                                <span>Lapangan SMPIT PERMATA</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Event 3 -->
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden card-hover transition-all">
+                        <div class="bg-amber-600 text-white p-4 text-center">
+                            <div class="text-2xl font-bold">14</div>
+                            <div class="text-sm">September 2023</div>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-green-800 mb-3">Lomba Pionering Antar Kelas</h3>
+                            <p class="text-gray-700 mb-4">Lomba membuat konstruksi pionering dengan tema "Jembatan Masa Depan".</p>
+                            <div class="flex items-center text-sm text-gray-500">
+                                <i class="fas fa-map-marker-alt mr-2"></i>
+                                <span>Halaman SMPIT PERMATA</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Event 4 -->
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden card-hover transition-all">
+                        <div class="bg-amber-600 text-white p-4 text-center">
+                            <div class="text-2xl font-bold">28-29</div>
+                            <div class="text-sm">Oktober 2023</div>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-green-800 mb-3">Jambore Ranting Mojokerto</h3>
+                            <p class="text-gray-700 mb-4">Perkemahan besar tingkat ranting yang diikuti oleh seluruh gugus depan se-Kecamatan Mojokerto.</p>
+                            <div class="flex items-center text-sm text-gray-500">
+                                <i class="fas fa-map-marker-alt mr-2"></i>
+                                <span>Bumi Perkemahan Trawas</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Event 5 -->
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden card-hover transition-all">
+                        <div class="bg-amber-600 text-white p-4 text-center">
+                            <div class="text-2xl font-bold">10</div>
+                            <div class="text-sm">November 2023</div>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-green-800 mb-3">Pelatihan P3K Dasar</h3>
+                            <p class="text-gray-700 mb-4">Pelatihan Pertolongan Pertama Pada Kecelakaan untuk anggota Dewan Penggalang.</p>
+                            <div class="flex items-center text-sm text-gray-500">
+                                <i class="fas fa-map-marker-alt mr-2"></i>
+                                <span>Aula SMPIT PERMATA</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Event 6 -->
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden card-hover transition-all">
+                        <div class="bg-amber-600 text-white p-4 text-center">
+                            <div class="text-2xl font-bold">15-17</div>
+                            <div class="text-sm">Desember 2023</div>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-green-800 mb-3">Perkemahan Akhir Tahun</h3>
+                            <p class="text-gray-700 mb-4">Perkemahan penutup tahun dengan berbagai kegiatan menarik dan evaluasi tahunan.</p>
+                            <div class="flex items-center text-sm text-gray-500">
+                                <i class="fas fa-map-marker-alt mr-2"></i>
+                                <span>Bumi Perkemahan Pacet</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Divisi Page -->
+        <section id="divisi-page" class="page hidden">
+            <div class="container mx-auto px-4 py-12">
+                <h2 class="text-3xl font-bold text-green-800 mb-8 text-center">Struktur Kepengurusan</h2>
+                
+                <!-- Kepengurusan Inti -->
+                <div class="mb-16">
+                    <h3 class="text-2xl font-bold text-amber-700 mb-6 text-center">Kepengurusan Inti</h3>
+                    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <!-- Ketua Putra -->
+                        <div class="bg-white rounded-lg shadow-md p-6 text-center card-hover transition-all">
+                            <div class="w-24 h-24 mx-auto mb-4 rounded-full bg-gray-200 flex items-center justify-center text-3xl text-amber-600">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <h4 class="text-xl font-bold text-green-800">Ketua Putra</h4>
+                            <p class="text-gray-700">Rafiansyah Devano Yussafandi/9B</p>
+                        </div>
+
+                        <!-- Sekretaris Putra -->
+                        <div class="bg-white rounded-lg shadow-md p-6 text-center card-hover transition-all">
+                            <div class="w-24 h-24 mx-auto mb-4 rounded-full bg-gray-200 flex items-center justify-center text-3xl text-amber-600">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <h4 class="text-xl font-bold text-green-800">Sekretaris Putra</h4>
+                            <p class="text-gray-700">Aqilla Sefa P./9A</p>
+                        </div>
+
+                        <!-- Bendahara Putra -->
+                        <div class="bg-white rounded-lg shadow-md p-6 text-center card-hover transition-all">
+                            <div class="w-24 h-24 mx-auto mb-4 rounded-full bg-gray-200 flex items-center justify-center text-3xl text-amber-600">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <h4 class="text-xl font-bold text-green-800">Bendahara Putra</h4>
+                            <p class="text-gray-700">Ghufronul Musta'an/9A</p>
+                        </div>
+
+                        <!-- Ketua Putri -->
+                        <div class="bg-white rounded-lg shadow-md p-6 text-center card-hover transition-all">
+                            <div class="w-24 h-24 mx-auto mb-4 rounded-full bg-gray-200 flex items-center justify-center text-3xl text-amber-600">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <h4 class="text-xl font-bold text-green-800">Ketua Putri</h4>
+                            <p class="text-gray-700">Azaria Wulan Ardiningrum/9D</p>
+                        </div>
+
+                        <!-- Sekretaris Putri -->
+                        <div class="bg-white rounded-lg shadow-md p-6 text-center card-hover transition-all">
+                            <div class="w-24 h-24 mx-auto mb-4 rounded-full bg-gray-200 flex items-center justify-center text-3xl text-amber-600">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <h4 class="text-xl font-bold text-green-800">Sekretaris Putri</h4>
+                            <p class="text-gray-700">Aubrey Akilah Prameswari/9D</p>
+                        </div>
+
+                        <!-- Bendahara Putri -->
+                        <div class="bg-white rounded-lg shadow-md p-6 text-center card-hover transition-all">
+                            <div class="w-24 h-24 mx-auto mb-4 rounded-full bg-gray-200 flex items-center justify-center text-3xl text-amber-600">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <h4 class="text-xl font-bold text-green-800">Bendahara Putri</h4>
+                            <p class="text-gray-700">Najwa Elya Azmil Rahmany/9C</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Divisi Teknik Kepramukaan -->
+                <div class="mb-16">
+                    <h3 class="text-2xl font-bold text-amber-700 mb-6 text-center">Divisi Teknik Kepramukaan</h3>
+                    <div class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                        <div class="bg-white rounded-lg shadow p-4 text-center card-hover transition-all">
+                            <div class="w-16 h-16 mx-auto mb-2 rounded-full bg-gray-200 flex items-center justify-center text-xl text-amber-600">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <h4 class="font-bold text-green-800">Daffina Karina Noer Zahira/9C (Co)</h4>
+                        </div>
+                        <div class="bg-white rounded-lg shadow p-4 text-center card-hover transition-all">
+                            <div class="w-16 h-16 mx-auto mb-2 rounded-full bg-gray-200 flex items-center justify-center text-xl text-amber-600">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <h4 class="font-bold text-green-800">Clarissa Radya Almahyra/9D</h4>
+                        </div>
+                        <div class="bg-white rounded-lg shadow p-4 text-center card-hover transition-all">
+                            <div class="w-16 h-16 mx-auto mb-2 rounded-full bg-gray-200 flex items-center justify-center text-xl text-amber-600">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <h4 class="font-bold text-green-800">Khalisha Widyanto/9D</h4>
+                        </div>
+                        <div class="bg-white rounded-lg shadow p-4 text-center card-hover transition-all">
+                            <div class="w-16 h-16 mx-auto mb-2 rounded-full bg-gray-200 flex items-center justify-center text-xl text-amber-600">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <h4 class="font-bold text-green-800">Aisyah Putri Az Zahrah/9D</h4>
+                        </div>
+                        <div class="bg-white rounded-lg shadow p-4 text-center card-hover transition-all">
+                            <div class="w-16 h-16 mx-auto mb-2 rounded-full bg-gray-200 flex items-center justify-center text-xl text-amber-600">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <h4 class="font-bold text-green-800">Ayu Zhahirah Mutiara Saemina/9C</h4>
+                        </div>
+                        <div class="bg-white rounded-lg shadow p-4 text-center card-hover transition-all">
+                            <div class="w-16 h-16 mx-auto mb-2 rounded-full bg-gray-200 flex items-center justify-center text-xl text-amber-600">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <h4 class="font-bold text-green-800">Ferlita Aurel Putri Ramadhani/9C</h4>
+                        </div>
+                        <div class="bg-white rounded-lg shadow p-4 text-center card-hover transition-all">
+                            <div class="w-16 h-16 mx-auto mb-2 rounded-full bg-gray-200 flex items-center justify-center text-xl text-amber-600">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <h4 class="font-bold text-green-800">Vidyah Kurnia Pramudha Wardhani/8C</h4>
+                        </div>
+                        <div class="bg-white rounded-lg shadow p-4 text-center card-hover transition-all">
+                            <div class="w-16 h-16 mx-auto mb-2 rounded-full bg-gray-200 flex items-center justify-center text-xl text-amber-600">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <h4 class="font-bold text-green-800">Afiqa Abelia Mustafa/8D</h4>
+                        </div>
+                        <div class="bg-white rounded-lg shadow p-4 text-center card-hover transition-all">
+                            <div class="w-16 h-16 mx-auto mb-2 rounded-full bg-gray-200 flex items-center justify-center text-xl text-amber-600">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <h4 class="font-bold text-green-800">Farhah/8D</h4>
+                        </div>
+                        <div class="bg-white rounded-lg shadow p-4 text-center card-hover transition-all">
+                            <div class="w-16 h-16 mx-auto mb-2 rounded-full bg-gray-200 flex items-center justify-center text-xl text-amber-600">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <h4 class="font-bold text-green-800">Nabila Ilkhata Tsauqina/8C</h4>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Divisi Upacara -->
+                <div class="mb-16">
+                    <h3 class="text-2xl font-bold text-amber-700 mb-6 text-center">Divisi Upacara</h3>
+                    <div class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                        <div class="bg-white rounded-lg shadow p-4 text-center card-hover transition-all">
+                            <div class="w-16 h-16 mx-auto mb-2 rounded-full bg-gray-200 flex items-center justify-center text-xl text-amber-600">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <h4 class="font-bold text-green-800">Zahra Aqila An Nabila/9D (Co)</h4>
+                        </div>
+                        <div class="bg-white rounded-lg shadow p-4 text-center card-hover transition-all">
+                            <div class="w-16 h-16 mx-auto mb-2 rounded-full bg-gray-200 flex items-center justify-center text-xl text-amber-600">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <h4 class="font-bold text-green-800">Iman A./8B</h4>
+                        </div>
+                        <div class="bg-white rounded-lg shadow p-4 text-center card-hover transition-all">
+                            <div class="w-16 h-16 mx-auto mb-2 rounded-full bg-gray-200 flex items-center justify-center text-xl text-amber-600">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <h4 class="font-bold text-green-800">Landra Alcarenza Sandryant/8B</h4>
+                        </div>
+                        <div class="bg-white rounded-lg shadow p-4 text-center card-hover transition-all">
+                            <div class="w-16 h-16 mx-auto mb-2 rounded-full bg-gray-200 flex items-center justify-center text-xl text-amber-600">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <h4 class="font-bold text-green-800">Alya Husna Ramadhani/8D</h4>
+                        </div>
+                        <div class="bg-white rounded-lg shadow p-4 text-center card-hover transition-all">
+                            <div class="w-16 h-16 mx-auto mb-2 rounded-full bg-gray-200 flex items-center justify-center text-xl text-amber-600">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <h4 class="font-bold text-green-800">Shafiyya Kamil/8C</h4>
+                        </div>
+                        <div class="bg-white rounded-lg shadow p-4 text-center card-hover transition-all">
+                            <div class="w-16 h-16 mx-auto mb-2 rounded-full bg-gray-200 flex items-center justify-center text-xl text-amber-600">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <h4 class="font-bold text-green-800">Hafna Ilmy Muhalla/8D</h4>
+                        </div>
+                        <div class="bg-white rounded-lg shadow p-4 text-center card-hover transition-all">
+                            <div class="w-16 h-16 mx-auto mb-2 rounded-full bg-gray-200 flex items-center justify-center text-xl text-amber-600">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <h4 class="font-bold text-green-800">Azka Fatimah Azzahra/8D</h4>
+                        </div>
+                        <div class="bg-white rounded-lg shadow p-4 text-center card-hover transition-all">
+                            <div class="w-16 h-16 mx-auto mb-2 rounded-full bg-gray-200 flex items-center justify-center text-xl text-amber-600">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <h4 class="font-bold text-green-800">Nadhira Izza Wahidah/8C</h4>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Divisi Perlengkapan -->
+                <div class="mb-16">
+                    <h3 class="text-2xl font-bold text-amber-700 mb-6 text-center">Divisi Perlengkapan</h3>
+                    <div class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                        <div class="bg-white rounded-lg shadow p-4 text-center card-hover transition-all">
+                            <div class="w-16 h-16 mx-auto mb-2 rounded-full bg-gray-200 flex items-center justify-center text-xl text-amber-600">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <h4 class="font-bold text-green-800">Joevano F.A./9B (Co)</h4>
+                        </div>
+                        <div class="bg-white rounded-lg shadow p-4 text-center card-hover transition-all">
+                            <div class="w-16 h-16 mx-auto mb-2 rounded-full bg-gray-200 flex items-center justify-center text-xl text-amber-600">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <h4 class="font-bold text-green-800">Hugo Puzzle/9A</h4>
+                        </div>
+                        <div class="bg-white rounded-lg shadow p-4 text-center card-hover transition-all">
+                            <div class="w-16 h-16 mx-auto mb-2 rounded-full bg-gray-200 flex items-center justify-center text-xl text-amber-600">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <h4 class="font-bold text-green-800">Juna Esa Al Fajr Sanjaya/8B</h4>
+                        </div>
+                        <div class="bg-white rounded-lg shadow p-4 text-center card-hover transition-all">
+                            <div class="w-16 h-16 mx-auto mb-2 rounded-full bg-gray-200 flex items-center justify-center text-xl text-amber-600">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <h4 class="font-bold text-green-800">Muhammad Asyam Al Ahnaf/8B</h4>
+                        </div>
+                        <div class="bg-white rounded-lg shadow p-4 text-center card-hover transition-all">
+                            <div class="w-16 h-16 mx-auto mb-2 rounded-full bg-gray-200 flex items-center justify-center text-xl text-amber-600">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <h4 class="font-bold text-green-800">Kaffa Rizky Qiyamullail/8A</h4>
+                        </div>
+                        <div class="bg-white rounded-lg shadow p-4 text-center card-hover transition-all">
+                            <div class="w-16 h-16 mx-auto mb-2 rounded-full bg-gray-200 flex items-center justify-center text-xl text-amber-600">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <h4 class="font-bold text-green-800">Ibadurrahman/8A</h4>
+                        </div>
+                        <div class="bg-white rounded-lg shadow p-4 text-center card-hover transition-all">
+                            <div class="w-16 h-16 mx-auto mb-2 rounded-full bg-gray-200 flex items-center justify-center text-xl text-amber-600">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <h4 class="font-bold text-green-800">Umar Zahid Ahmad/8A</h4>
+                        </div>
+                        <div class="bg-white rounded-lg shadow p-4 text-center card-hover transition-all">
+                            <div class="w-16 h-16 mx-auto mb-2 rounded-full bg-gray-200 flex items-center justify-center text-xl text-amber-600">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <h4 class="font-bold text-green-800">Muhammad Ali Fathir Asykarillah/8A</h4>
+                        </div>
+                        <div class="bg-white rounded-lg shadow p-4 text-center card-hover transition-all">
+                            <div class="w-16 h-16 mx-auto mb-2 rounded-full bg-gray-200 flex items-center justify-center text-xl text-amber-600">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <h4 class="font-bold text-green-800">M. Dzakwan/8B</h4>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Divisi Dokumentasi -->
+                <div class="mb-16">
+                    <h3 class="text-2xl font-bold text-amber-700 mb-6 text-center">Divisi Dokumentasi</h3>
+                    <div class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                        <div class="bg-white rounded-lg shadow p-4 text-center card-hover transition-all">
+                            <div class="w-16 h-16 mx-auto mb-2 rounded-full bg-gray-200 flex items-center justify-center text-xl text-amber-600">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <h4 class="font-bold text-green-800">Raihanah Zulfa Kusuma Wardani/9D (Co)</h4>
+                        </div>
+                        <div class="bg-white rounded-lg shadow p-4 text-center card-hover transition-all">
+                            <div class="w-16 h-16 mx-auto mb-2 rounded-full bg-gray-200 flex items-center justify-center text-xl text-amber-600">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <h4 class="font-bold text-green-800">Naurah Majidah Harjadi/9C</h4>
+                        </div>
+                        <div class="bg-white rounded-lg shadow p-4 text-center card-hover transition-all">
+                            <div class="w-16 h-16 mx-auto mb-2 rounded-full bg-gray-200 flex items-center justify-center text-xl text-amber-600">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <h4 class="font-bold text-green-800">Nathania Amira Fakhrunnisa/9D</h4>
+                        </div>
+                        <div class="bg-white rounded-lg shadow p-4 text-center card-hover transition-all">
+                            <div class="w-16 h-16 mx-auto mb-2 rounded-full bg-gray-200 flex items-center justify-center text-xl text-amber-600">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <h4 class="font-bold text-green-800">Farah Rizwana Firdausiah/8D</h4>
+                        </div>
+                        <div class="bg-white rounded-lg shadow p-4 text-center card-hover transition-all">
+                            <div class="w-16 h-16 mx-auto mb-2 rounded-full bg-gray-200 flex items-center justify-center text-xl text-amber-600">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <h4 class="font-bold text-green-800">Nabila Hasya Muttaqin/8C</h4>
+                        </div>
+                        <div class="bg-white rounded-lg shadow p-4 text-center card-hover transition-all">
+                            <div class="w-16 h-16 mx-auto mb-2 rounded-full bg-gray-200 flex items-center justify-center text-xl text-amber-600">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <h4 class="font-bold text-green-800">Hilma Tsabita/8C</h4>
+                        </div>
+                        <div class="bg-white rounded-lg shadow p-4 text-center card-hover transition-all">
+                            <div class="w-16 h-16 mx-auto mb-2 rounded-full bg-gray-200 flex items-center justify-center text-xl text-amber-600">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <h4 class="font-bold text-green-800">Raisa El Udzma Famuji/8C</h4>
+                        </div>
+                        <div class="bg-white rounded-lg shadow p-4 text-center card-hover transition-all">
+                            <div class="w-16 h-16 mx-auto mb-2 rounded-full bg-gray-200 flex items-center justify-center text-xl text-amber-600">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <h4 class="font-bold text-green-800">Azita Kayyisah Kiani/8C</h4>
+                        </div>
+                        <div class="bg-white rounded-lg shadow p-4 text-center card-hover transition-all">
+                            <div class="w-16 h-16 mx-auto mb-2 rounded-full bg-gray-200 flex items-center justify-center text-xl text-amber-600">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <h4 class="font-bold text-green-800">Kirana Aulia Azkadina/8C</h4>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Divisi Entrepreneur -->
+                <div class="mb-16">
+                    <h3 class="text-2xl font-bold text-amber-700 mb-6 text-center">Divisi Entrepreneur</h3>
+                    <div class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                        <div class="bg-white rounded-lg shadow p-4 text-center card-hover transition-all">
+                            <div class="w-16 h-16 mx-auto mb-2 rounded-full bg-gray-200 flex items-center justify-center text-xl text-amber-600">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <h4 class="font-bold text-green-800">Salma Hayaa Nayla Putri/9D (Co)</h4>
+                        </div>
+                        <div class="bg-white rounded-lg shadow p-4 text-center card-hover transition-all">
+                            <div class="w-16 h-16 mx-auto mb-2 rounded-full bg-gray-200 flex items-center justify-center text-xl text-amber-600">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <h4 class="font-bold text-green-800">Farah Saniyatul Hamdiyyah AZ Zahraa'/9D</h4>
+                        </div>
+                        <div class="bg-white rounded-lg shadow p-4 text-center card-hover transition-all">
+                            <div class="w-16 h-16 mx-auto mb-2 rounded-full bg-gray-200 flex items-center justify-center text-xl text-amber-600">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <h4 class="font-bold text-green-800">Naura Syifa/9D</h4>
+                        </div>
+                        <div class="bg-white rounded-lg shadow p-4 text-center card-hover transition-all">
+                            <div class="w-16 h-16 mx-auto mb-2 rounded-full bg-gray-200 flex items-center justify-center text-xl text-amber-600">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <h4 class="font-bold text-green-800">Muthi'ah Amirah/8C</h4>
+                        </div>
+                        <div class="bg-white rounded-lg shadow p-4 text-center card-hover transition-all">
+                            <div class="w-16 h-16 mx-auto mb-2 rounded-full bg-gray-200 flex items-center justify-center text-xl text-amber-600">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <h4 class="font-bold text-green-800">Vondra Janitra Maulida Diningrat/8D</h4>
+                        </div>
+                        <div class="bg-white rounded-lg shadow p-4 text-center card-hover transition-all">
+                            <div class="w-16 h-16 mx-auto mb-2 rounded-full bg-gray-200 flex items-center justify-center text-xl text-amber-600">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <h4 class="font-bold text-green-800">Syasya Sabrina Azalia Putri/8D</h4>
+                        </div>
+                        <div class="bg-white rounded-lg shadow p-4 text-center card-hover transition-all">
+                            <div class="w-16 h-16 mx-auto mb-2 rounded-full bg-gray-200 flex items-center justify-center text-xl text-amber-600">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <h4 class="font-bold text-green-800">Kharidah Asshilah Husna Setyawan/8C</h4>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Divisi Seni & Budaya -->
+                <div class="mb-16">
+                    <h3 class="text-2xl font-bold text-amber-700 mb-6 text-center">Divisi Seni & Budaya</h3>
+                    <div class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                        <div class="bg-white rounded-lg shadow p-4 text-center card-hover transition-all">
+                            <div class="w-16 h-16 mx-auto mb-2 rounded-full bg-gray-200 flex items-center justify-center text-xl text-amber-600">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <h4 class="font-bold text-green-800">Anindya Shareen Qysteena/9D (Co)</h4>
+                        </div>
+                        <div class="bg-white rounded-lg shadow p-4 text-center card-hover transition-all">
+                            <div class="w-16 h-16 mx-auto mb-2 rounded-full bg-gray-200 flex items-center justify-center text-xl text-amber-600">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <h4 class="font-bold text-green-800">Naura Kayyasa Rahmah/9D</h4>
+                        </div>
+                        <div class="bg-white rounded-lg shadow p-4 text-center card-hover transition-all">
+                            <div class="w-16 h-16 mx-auto mb-2 rounded-full bg-gray-200 flex items-center justify-center text-xl text-amber-600">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <h4 class="font-bold text-green-800">Naurah Adini/9C</h4>
+                        </div>
+                        <div class="bg-white rounded-lg shadow p-4 text-center card-hover transition-all">
+                            <div class="w-16 h-16 mx-auto mb-2 rounded-full bg-gray-200 flex items-center justify-center text-xl text-amber-600">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <h4 class="font-bold text-green-800">Efelina Shifa Morlibraco/8C</h4>
+                        </div>
+                        <div class="bg-white rounded-lg shadow p-4 text-center card-hover transition-all">
+                            <div class="w-16 h-16 mx-auto mb-2 rounded-full bg-gray-200 flex items-center justify-center text-xl text-amber-600">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <h4 class="font-bold text-green-800">Najma Shabira Felisia/8D</h4>
+                        </div>
+                        <div class="bg-white rounded-lg shadow p-4 text-center card-hover transition-all">
+                            <div class="w-16 h-16 mx-auto mb-2 rounded-full bg-gray-200 flex items-center justify-center text-xl text-amber-600">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <h4 class="font-bold text-green-800">Cantika Aprilia Putri/8C</h4>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Divisi Kesra -->
+                <div class="mb-16">
+                    <h3 class="text-2xl font-bold text-amber-700 mb-6 text-center">Divisi Kesra</h3>
+                    <div class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                        <div class="bg-white rounded-lg shadow p-4 text-center card-hover transition-all">
+                            <div class="w-16 h-16 mx-auto mb-2 rounded-full bg-gray-200 flex items-center justify-center text-xl text-amber-600">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <h4 class="font-bold text-green-800">Qonitatillah Rahmanto/9D (Co)</h4>
+                        </div>
+                        <div class="bg-white rounded-lg shadow p-4 text-center card-hover transition-all">
+                            <div class="w-16 h-16 mx-auto mb-2 rounded-full bg-gray-200 flex items-center justify-center text-xl text-amber-600">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <h4 class="font-bold text-green-800">Shofiyah Muthi'atur Rosyidah/9C</h4>
+                        </div>
+                        <div class="bg-white rounded-lg shadow p-4 text-center card-hover transition-all">
+                            <div class="w-16 h-16 mx-auto mb-2 rounded-full bg-gray-200 flex items-center justify-center text-xl text-amber-600">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <h4 class="font-bold text-green-800">Almirah Mikha Callista Putri/9C</h4>
+                        </div>
+                        <div class="bg-white rounded-lg shadow p-4 text-center card-hover transition-all">
+                            <div class="w-16 h-16 mx-auto mb-2 rounded-full bg-gray-200 flex items-center justify-center text-xl text-amber-600">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <h4 class="font-bold text-green-800">Aqila Mozza Nafisah/9D</h4>
+                        </div>
+                        <div class="bg-white rounded-lg shadow p-4 text-center card-hover transition-all">
+                            <div class="w-16 h-16 mx-auto mb-2 rounded-full bg-gray-200 flex items-center justify-center text-xl text-amber-600">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <h4 class="font-bold text-green-800">Mufidah Tazkiyatur Rohmah/8D</h4>
+                        </div>
+                        <div class="bg-white rounded-lg shadow p-4 text-center card-hover transition-all">
+                            <div class="w-16 h-16 mx-auto mb-2 rounded-full bg-gray-200 flex items-center justify-center text-xl text-amber-600">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <h4 class="font-bold text-green-800">Khayla Almira Maritza/8C</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Kontak Page -->
+        <section id="kontak-page" class="page hidden">
+            <div class="container mx-auto px-4 py-12">
+                <h2 class="text-3xl font-bold text-green-800 mb-8 text-center">Hubungi Kami</h2>
+                
+                <div class="grid md:grid-cols-2 gap-8">
+                    <!-- Contact Info -->
+                    <div class="bg-white rounded-lg shadow-lg p-6">
+                        <h3 class="text-2xl font-bold text-amber-700 mb-4">Informasi Kontak</h3>
+                        
+                        <div class="space-y-4">
+                            <div class="flex items-start">
+                                <div class="bg-green-100 p-3 rounded-full mr-4">
+                                    <i class="fas fa-school text-green-700 text-xl"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-green-800">Alamat Sekolah</h4>
+                                    <p class="text-gray-700">SMPIT PERMATA, Mojokerto</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <div class="bg-green-100 p-3 rounded-full mr-4">
+                                    <i class="fab fa-whatsapp text-green-700 text-xl"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-green-800">WhatsApp</h4>
+                                    <p class="text-gray-700">0858-5208-4287</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <div class="bg-green-100 p-3 rounded-full mr-4">
+                                    <i class="fab fa-instagram text-green-700 text-xl"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-green-800">Instagram</h4>
+                                    <p class="text-gray-700">spartascouting</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-8">
+                            <h4 class="font-bold text-green-800 mb-3">Jam Operasional</h4>
+                            <div class="bg-amber-50 p-4 rounded-lg">
+                                <div class="flex justify-between py-2 border-b border-amber-100">
+                                    <span class="font-medium">Senin - Jumat</span>
+                                    <span>07:00 - 14.30 WIB</span>
+                                </div>
+                                <div class="flex justify-between py-2">
+                                    <span class="font-medium">Sabtu-Minggu</span>
+                                    <span>Libur</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Contact Form -->
+                  <div class="bg-white rounded-lg shadow-lg p-6">
+                        <h3 class="text-2xl font-bold text-amber-700 mb-4">Kirim Pesan</h3>
+                        <form  action="https://formspree.io/f/xldwgkjw" method="POST" accept-charset="UTF-8">
+                              <input type="hidden" name="_captcha" value="false">
+                              <input type="hidden" name="_subject" value="Pesan Baru dari Website"> 
+
+                            <div class="mb-4">
+                                <label for="name" class="block text-gray-700 font-medium mb-2">Nama Lengkap</label>
+                                <input type="text" id="name" name="nama" required
+                                 class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500">
+                            </div>
+                            
+                            <div class="mb-4">
+                                <label for="email" class="block text-gray-700 font-medium mb-2">Email</label>
+                                <input type="email" id="email" name="email" required
+                                 class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500">
+                            </div>
+                            
+                            <div class="mb-4">
+                                <label for="subject" class="block text-gray-700 font-medium mb-2">Subjek</label>
+                                <input type="text" id="subject" name="subjek"
+                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500">
+                            </div>
+                            
+                            <div class="mb-4">
+                                <label for="message" class="block text-gray-700 font-medium mb-2">Pesan</label>
+                                <textarea id="message" name="pesan" rows="4" required
+                                 class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500"></textarea>
+                            </div>
+                            
+                            <button type="submit" class="w-full bg-amber-600 text-white py-2 px-4 rounded-lg hover:bg-amber-700 transition-all font-medium">
+                                Kirim Pesan
+                            </button>
+                        </form>
+                    </div>
+                </div>
+ 
+                
+                <!-- Map -->
+                <div class="mt-12 bg-white rounded-lg shadow-lg overflow-hidden">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3955.931316765265!2d112.44386507588256!3d-7.472837173675743!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e780d90c8d0c047%3A0xdd85438eb6aa88cf!2sSMP%20Islam%20Terpadu%20Permata!5e0!3m2!1sid!2sid!4v1756473611356!5m2!1sid!2sid" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-green-900 text-white py-8">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-3 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Tentang Kami</h3>
+                    <p class="mb-4">Dewan Penggalang SMPIT PERMATA Mojokerto adalah organisasi intra sekolah yang bertanggung jawab dalam mengkoordinasikan kegiatan kepramukaan di sekolah kami.</p>
+                    <div class="flex space-x-4">
+                    </div>
+                </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Kontak Kami</h3>
+                    <ul class="space-y-2">
+                        <li class="flex items-start">
+                            <i class="fas fa-map-marker-alt mt-1 mr-3 text-amber-300"></i>
+                            <span>SMPIT PERMATA, Mojokerto</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-phone-alt mt-1 mr-3 text-amber-300"></i>
+                            <span>0858-5208-4287</span>
+                        </li>
+                       
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-green-800 mt-8 pt-6 text-center">
+                <p>&copy; 2025 Dewan Penggalang SMPIT PERMATA Mojokerto. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        document.getElementById('mobile-menu-button').addEventListener('click', function() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        });
+
+        // Page Navigation
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Hide all pages
+                document.querySelectorAll('.page').forEach(page => {
+                    page.classList.add('hidden');
+                });
+                
+                // Show selected page
+                const pageId = this.getAttribute('data-page') + '-page';
+                document.getElementById(pageId).classList.remove('hidden');
+                
+                // Update active nav link
+                document.querySelectorAll('.nav-link').forEach(navLink => {
+                    navLink.classList.remove('active');
+                });
+                this.classList.add('active');
+                
+                // Close mobile menu if open
+                document.getElementById('mobile-menu').classList.add('hidden');
+                
+                // Scroll to top
+                window.scrollTo(0, 0);
+            });
+        });
+
+        // Set home as default page
+        document.querySelector('[data-page="home"]').classList.add('active');
+    </script>
 </body>
 </html>
