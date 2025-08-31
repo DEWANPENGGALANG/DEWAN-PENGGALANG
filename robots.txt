@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://dewanpenggalang.github.io/DEWAN-PENGGALANG/sitemap.xml
