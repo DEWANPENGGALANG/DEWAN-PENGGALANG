@@ -1,0 +1,25 @@
+name: Generate Sitemap
+
+on:
+  push:
+    branches:
+      - main   
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: Generate Sitemap
+        uses: cicirello/generate-sitemap@v1
+        with:
+          base-url-path: https://dewanpenggalang.github.io/DEWAN-PENGGALANG/
+
+      - name: Commit & Push sitemap
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add sitemap.xml
+          git commit -m "Update sitemap" || echo "No changes to commit"
+          git push
