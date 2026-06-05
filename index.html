@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -12,11 +11,55 @@
             color: #000000;
             font-weight: 600;
         }
-        .hero {
-            background-image: linear-gradient(rgba(255, 255, 255, 0.685), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1755263771373-9e49d060947e?w=900');
+        
+        /* Hero Slider Styles */
+        .hero-slider {
+            position: relative;
+            height: 24rem; /* h-96 = 24rem */
+            width: 100%;
+            overflow: hidden;
+        }
+        
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             background-size: cover;
             background-position: center;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+            z-index: 1;
         }
+        
+        .slide.active {
+            opacity: 1;
+            z-index: 2;
+        }
+        
+        .slide::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(255, 255, 255, 0.685), rgba(0, 0, 0, 0.5));
+            z-index: 1;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 3;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+        }
+        
         .card-hover:hover {
             transform: translateY(-5px);
             box-shadow: 0 10px 20px rgba(0,0,0,0.1);
@@ -220,6 +263,134 @@
             font-size: 0.9rem;
             line-height: 1.3;
         }
+        
+        /* Slider dot indicators */
+        .slider-dots {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 12px;
+            z-index: 10;
+        }
+        
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .dot.active {
+            background-color: #fbbf24;
+            width: 24px;
+            border-radius: 5px;
+        }
+
+        /* Floating Video Styles - HANYA UNTUK HALAMAN BERITA */
+        .floating-video {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 999;
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+            transition: all 0.3s ease;
+            width: 300px;
+        }
+
+        .floating-video video {
+            width: 100%;
+            display: block;
+            background: #000;
+        }
+
+        .video-header {
+            background: linear-gradient(135deg, #f7c110, #fbaa1d);
+            padding: 8px 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .video-header button {
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: white;
+            width: 24px;
+            height: 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        .video-header button:hover {
+            background: rgba(255,255,255,0.4);
+        }
+
+        /* Efek mengambang seperti emoji */
+        @keyframes floatVideo {
+            0% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-12px);
+            }
+            100% {
+                transform: translateY(0px);
+            }
+        }
+
+        .floating-video {
+            animation: floatVideo 3.5s ease-in-out infinite;
+        }
+
+        /* Tombol reopen video */
+        .video-reopen-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 999;
+            background: linear-gradient(135deg, oklch(75.14% 0.16026 69.613), lab(76.96% 17.83 75.26));
+            color: white;
+            border: none;
+            padding: 12px 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            transition: all 0.3s;
+            animation: floatVideo 3.5s ease-in-out infinite;
+        }
+
+        .video-reopen-btn:hover {
+            transform: scale(1.05);
+        }
+
+        @media (max-width: 640px) {
+            .floating-video {
+                width: 250px;
+                bottom: 15px;
+                right: 15px;
+            }
+            .video-reopen-btn {
+                bottom: 15px;
+                right: 15px;
+                padding: 8px 14px;
+                font-size: 12px;
+            }
+        }
     </style>
     <link rel="icon" href="apple-icon-60x60.png" type="image/png">
 </head>
@@ -255,16 +426,43 @@
             </ul>
         </div>
     </header>
-
-    <!-- Main Content -->
-    <main>
+    
         <!-- Home Page -->
         <section id="home-page" class="page">
-            <!-- Hero Section -->
-            <div class="hero h-96 flex items-center justify-center text-center text-white">
-                <div class="px-4">
-                    <h1 class="text-4xl md:text-5xl font-bold mb-4">Selamat Datang di Website Resmi Dewan Penggalang SMPIT PERMATA Mojokerto</h1>
-                    <p class="text-xl md:text-2xl">Membentuk Generasi Pramuka yang Berkarakter dan Berprestasi</p>
+            <!-- Hero Section with Slider -->
+            <div class="hero-slider">
+                <!-- Slide 1 -->
+                <div class="slide active" style="background-image: url('https://images.unsplash.com/photo-1755263771373-9e49d060947e?w=900');">
+                    <div class="hero-content">
+                        <div class="px-4">
+                            <h1 class="text-4xl md:text-5xl font-bold mb-4">Selamat Datang di Website Resmi Dewan Penggalang SMPIT PERMATA Mojokerto</h1>
+                            <p class="text-xl md:text-2xl">Membentuk Generasi Pramuka yang Berkarakter dan Berprestasi</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Slide 2 -->
+                <div class="slide" style="background-image: url('https://images.pexels.com/photos/37969063/pexels-photo-37969063.jpeg');">
+                    <div class="hero-content">
+                        <div class="px-4">
+                            <h1 class="text-4xl md:text-5xl font-bold mb-4">Semangat Pramuka Membangun Bangsa</h1>
+                            <p class="text-xl md:text-2xl">Berkarakter, Tangguh, dan Berprestasi</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Slide 3 -->
+                <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1756527175886-f7643572073b?w=900');">
+                    <div class="hero-content">
+                        <div class="px-4">
+                            <h1 class="text-4xl md:text-5xl font-bold mb-4">Dewan Penggalang SMPIT PERMATA</h1>
+                            <p class="text-xl md:text-2xl">Bersama Kita Wujudkan Generasi Emas</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Dots Indicator -->
+                <div class="slider-dots">
+                    <div class="dot active" data-slide="0"></div>
+                    <div class="dot" data-slide="1"></div>
+                    <div class="dot" data-slide="2"></div>
                 </div>
             </div>
 
@@ -336,7 +534,7 @@
 
                     <!-- Berita 3 -->   
                       <div class="bg-white rounded-lg shadow-md overflow-hidden card-hover transition-all">
-                        <img src="https://images.unsplash.com/photo-1762679139184-eda8606fec90?=900" alt="Berita 2" class="w-full h-85 object-cover rounded-x1 transition-all"/>
+                        <img src="https://images.unsplash.com/photo-1762679139184-eda8606fec90?w=900" alt="Berita 2" class="w-full h-85 object-cover rounded-x1 transition-all"/>
                         <div class="p-6">
                             <span class="text-sm text-gray-500">29 Agustus 2025</span>
                             <h3 class="text-xl font-bold text-green-800 mt-2 mb-3">SELAMAT ATAS DILANTIK NYA DEWAN PENGGALANG MASA BAKTI 2025-2026</h3>
@@ -357,7 +555,7 @@ kalian dan menjadikan kepengurusan ini penuh keberkahan dan kebermanfaatan. Aami
                     </div>             
                     <!-- Berita 4 -->  
                      <div class="bg-white rounded-lg shadow-md overflow-hidden card-hover transition-all">
-                        <img src="https://images.unsplash.com/photo-1762591868938-2b4a44970747?=500" alt="Berita 2" class="w-full h-85 object-cover rounded-x1 transition-all"/>
+                        <img src="https://images.unsplash.com/photo-1762591868938-2b4a44970747?w=500" alt="Berita 2" class="w-full h-85 object-cover rounded-x1 transition-all"/>
                         <div class="p-6">
                             <span class="text-sm text-gray-500">10 - 12 OKTOBER 2025</span>
                             <h3 class="text-xl font-bold text-green-800 mt-2 mb-3"> Lomba Tingkat II PRAMUKA PENGGALANG</h3>
@@ -379,7 +577,7 @@ Pramuka! Tangkas, tangguh, terampil! ✊🏻</p>
 
                     <!-- Berita 6 -->
                       <div class="bg-white rounded-lg shadow-md overflow-hidden card-hover transition-all">
-                        <img src="https://images.unsplash.com/photo-1762678704931-b923a7e92503?=900" alt="Berita 2" class="w-full h-84 object-cover">
+                        <img src="https://images.unsplash.com/photo-1762678704931-b923a7e92503?w=900" alt="Berita 2" class="w-full h-84 object-cover">
                         <div class="p-6">
                             <span class="text-sm text-gray-500">23-25 Oktober</span>
                             <h3 class="text-xl font-bold text-green-800 mt-2 mb-3">LAGA IV</h3>
@@ -410,8 +608,27 @@ Kerja keras, Kekompakkan, dan semangat juang membuahkan hasil yang membanggakan.
                     </div>
                 </div>
             </div>
-        </section>
 
+         
+           <!-- FLOATING VIDEO - HANYA TAMPIL DI HALAMAN BERITA -->
+<div id="floatingVideo" class="floating-video">
+    <div class="video-header">
+        <span><i class="fas fa-video mr-1"></i> SCOUT MOMENT</span>
+        <button id="closeVideoBtn"><i class="fas fa-times"></i></button>
+    </div>
+    <!-- KODE EMBED SCREENPAL -->
+    <div class="sp-embed-player" data-id="cO1hjanu2CJ" data-aspect-ratio="1.777778" data-padding-top="56.250000%" style="position:relative;width:100%;padding-top:56.250000%;height:0;">
+        <script src="https://go.screenpal.com/consumption/player_appearance/cO1hjanu2CJ/1.777778"></script>
+        <iframe style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;" scrolling="no" src="https://go.screenpal.com/player/cO1hjanu2CJ?ff=1&ahc=1&dcc=1&a=1&tl=1&bg=transparent&share=1&download=1&embed=1&cl=1" allowfullscreen="true"></iframe>
+    </div>
+</div>
+
+<!-- Tombol untuk membuka video kembali jika ditutup -->
+<button id="reopenVideoBtn" class="video-reopen-btn" style="display: none;">
+    <i class="fas fa-video"></i> Buka Video Pramuka
+</button>
+            </button>
+        </section>
 
         <!-- Event Page -->
         <section id="event-page" class="page hidden">
@@ -717,9 +934,12 @@ Kerja keras, Kekompakkan, dan semangat juang membuahkan hasil yang membanggakan.
     </footer>
 
     <script>
+        // Mobile menu toggle
         document.getElementById('mobile-menu-button').addEventListener('click', function() {
             document.getElementById('mobile-menu').classList.toggle('hidden');
         });
+        
+        // Page navigation
         document.querySelectorAll('.nav-link').forEach(link => {
             link.addEventListener('click', function(e) {
                 e.preventDefault();
@@ -733,7 +953,80 @@ Kerja keras, Kekompakkan, dan semangat juang membuahkan hasil yang membanggakan.
             });
         });
         document.querySelector('[data-page="home"]').classList.add('active');
+        
+        // Hero Slider Functionality
+        const slides = document.querySelectorAll('.slide');
+        const dots = document.querySelectorAll('.dot');
+        let currentSlide = 0;
+        let slideInterval;
+        
+        function showSlide(index) {
+            slides.forEach(slide => slide.classList.remove('active'));
+            dots.forEach(dot => dot.classList.remove('active'));
+            
+            slides[index].classList.add('active');
+            dots[index].classList.add('active');
+            currentSlide = index;
+        }
+        
+        function nextSlide() {
+            let next = (currentSlide + 1) % slides.length;
+            showSlide(next);
+        }
+        
+        function startSlider() {
+            slideInterval = setInterval(nextSlide, 4000);
+        }
+        
+        function stopSlider() {
+            if (slideInterval) {
+                clearInterval(slideInterval);
+            }
+        }
+        
+        // Add click event to dots
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                stopSlider();
+                showSlide(index);
+                startSlider();
+            });
+        });
+        
+        // Pause slider on hover
+        const heroSlider = document.querySelector('.hero-slider');
+        heroSlider.addEventListener('mouseenter', stopSlider);
+        heroSlider.addEventListener('mouseleave', startSlider);
+        
+        // Start the slider
+        startSlider();
+
+        // ========== FLOATING VIDEO FUNCTIONALITY ==========
+        const floatingVideo = document.getElementById('floatingVideo');
+        const closeVideoBtn = document.getElementById('closeVideoBtn');
+        const reopenVideoBtn = document.getElementById('reopenVideoBtn');
+        
+        // Sembunyikan video saat tombol close diklik
+        closeVideoBtn.addEventListener('click', function() {
+            floatingVideo.style.display = 'none';
+            reopenVideoBtn.style.display = 'flex';
+        });
+        
+        // Tampilkan video kembali saat tombol reopen diklik
+        reopenVideoBtn.addEventListener('click', function() {
+            floatingVideo.style.display = 'block';
+            reopenVideoBtn.style.display = 'none';
+        });
+        
+        // ========== CARA MENGGANTI VIDEO ==========
+        // Ganti URL video di bawah ini dengan URL video Anda
+        const videoElement = document.getElementById('scoutVideo');
+        videoElement.src = "https://go.screenpal.com/watch/cO1hjanu2CJ";
+        // Contoh: videoElement.src = "https://example.com/video-pramuka.mp4";
+        // Biarkan kosong dulu, nanti Anda isi sendiri
+        
+        // Catatan: Video akan tampil mengambang (floating) dengan animasi naik turun
+        // seperti emoji 🏆🎗️✨ yang diminta
     </script>
 </body>
 </html>
-```
