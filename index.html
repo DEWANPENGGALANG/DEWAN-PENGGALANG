@@ -7,15 +7,122 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        .active {
-            color: #000000;
+         /* ========== LOADING SCREEN PREMIUM ========== */
+        #loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #f89500fb, #f89500fb, #f89500fb);
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.8s ease, visibility 0.8s ease;
+        }
+        
+        .loading-logo {
+            width: 100px;
+            height: 100px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 30px;
+            box-shadow: 0 0 30px rgba(255,255,255,0.3);
+            animation: pulseLoading 1.5s ease-in-out infinite;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        
+        .loading-logo i {
+            font-size: 55px;
+            color: #f59e0b;
+        }
+        
+        .loading-logo img {
+            width: 70%;
+            height: 70%;
+            object-fit: contain;
+        }
+        
+        @keyframes pulseLoading {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.08); opacity: 0.9; }
+        }
+        
+        .loading-bar-container {
+            width: 280px;
+            height: 6px;
+            background: rgba(255,255,255,0.3);
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+        
+        .loading-bar {
+            width: 0%;
+            height: 100%;
+            background: #000000;
+            border-radius: 10px;
+            transition: width 0.15s linear;
+        }
+        
+        .loading-text {
+            color: white;
+            font-size: 14px;
+            letter-spacing: 3px;
             font-weight: 600;
+            margin-top: 8px;
+        }
+        
+        .loading-sub {
+            font-size: 11px;
+            opacity: 0.8;
+            margin-top: 5px;
+        }
+        
+        /* ========== MOBILE MENU ANIMASI HALUS KEBAWAH ========== */
+        #mobile-menu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            background-color: #d97706;
+            border-radius: 0 0 20px 20px;
+        }
+        
+        #mobile-menu.show {
+            max-height: 380px;
+        }
+        
+        #mobile-menu ul {
+            padding: 16px 20px;
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+        
+        #mobile-menu.show ul {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .mobile-nav-link {
+            transition: all 0.2s ease;
+            display: inline-block;
+        }
+        
+        .mobile-nav-link:active {
+            transform: scale(0.97);
         }
         
         /* Hero Slider Styles */
         .hero-slider {
             position: relative;
-            height: 24rem; /* h-96 = 24rem */
+            height: 24rem;
             width: 100%;
             overflow: hidden;
         }
@@ -45,7 +152,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(rgba(255, 255, 255, 0.685), rgba(0, 0, 0, 0.5));
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.6));
             z-index: 1;
         }
         
@@ -60,59 +167,28 @@
             color: white;
         }
         
-        .card-hover:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-            transition: all 0.3s ease;
+        .card-hover {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        .transition-all {
-            transition: all 0.3s ease;
+        
+        .card-hover:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 25px -12px rgba(0,0,0,0.15);
         }
         
         /* Animasi Global */
-        @keyframes slideUp {
-            from { transform: translateY(10px); opacity: 0; }
-            to { transform: translateY(-5px); opacity: 1; }
-        }
-        
         @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         
-        @keyframes slideInLeft {
-            from { transform: translateX(-20px); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
-        }
-        
-        @keyframes slideInRight {
-            from { transform: translateX(20px); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
-        }
-        
-        @keyframes scaleIn {
-            from { transform: scale(0.95); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
-        }
-        
-        /* Page Transitions */
         .page {
-            animation: fadeIn 0.5s ease;
-        }
-        
-        /* Mobile Menu Animation */
-        #mobile-menu {
-            animation: slideInLeft 0.3s ease !important;
-        }
-        
-        #mobile-menu.hidden {
-            animation: none;
+            animation: fadeIn 0.5s ease-out;
         }
         
         /* Nav Link Animation */
         .nav-link {
             position: relative;
-            display: inline-block;
             transition: all 0.3s ease;
         }
         
@@ -132,99 +208,10 @@
             width: 100%;
         }
         
-        /* Form Animation */
-        .bg-white {
-            animation: scaleIn 0.4s ease;
-        }
-        
-        /* Modal Styles */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            animation: fadeIn 0.3s ease;
-        }
-        
-        .modal.show {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .modal-content {
-            background-color: white;
-            padding: 20px;
-            border-radius: 8px;
-            width: 90%;
-            max-height: 80vh;
-            overflow-y: auto;
-            animation: scaleIn 0.3s ease;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-        }
-        
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid #d97706;
-            animation: slideInLeft 0.3s ease;
-        }
-        
-        .modal-close {
-            background: none;
-            border: none;
-            font-size: 28px;
-            cursor: pointer;
-            color: #d97706;
-            transition: all 0.3s ease;
-        }
-        
-        .modal-close:hover {
-            transform: rotate(90deg);
-            color: #dc2626;
-        }
-        
-        .modal-body {
-            animation: slideInRight 0.3s ease;
-        }
-        
-        /* Divisi Grid Animation */
-        .grid > div {
-            animation: scaleIn 0.4s ease;
-        }
-        
-        /* Button Animations */
-        button {
-            transition: all 0.3s ease;
-        }
-        
-        button:active {
-            transform: scale(0.98);
-        }
-        
-        /* Link Animations */
-        a {
-            transition: all 0.3s ease;
-        }
-        
-        /* Hover Effects */
-        .bg-amber-600:hover {
-            animation: none;
-            transform: translateY(-2px);
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-        }
-
-        /* Member Card Styles */
+        /* Member Card */
         .member-card {
             background: white;
-            border-radius: 12px;
+            border-radius: 16px;
             padding: 1rem;
             text-align: center;
             transition: all 0.3s ease;
@@ -233,14 +220,15 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
         }
-
+        
         .member-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+            transform: translateY(-5px);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.12);
             background-color: #fffbeb;
         }
-
+        
         .avatar-icon {
             width: 60px;
             height: 60px;
@@ -250,21 +238,18 @@
             align-items: center;
             justify-content: center;
             margin-bottom: 0.75rem;
+            transition: transform 0.3s;
         }
-
+        
+        .member-card:hover .avatar-icon {
+            transform: scale(1.05);
+        }
+        
         .avatar-icon i {
             font-size: 1.75rem;
             color: #d97706;
         }
-
-        .member-name {
-            font-weight: 600;
-            color: #065f46;
-            font-size: 0.9rem;
-            line-height: 1.3;
-        }
         
-        /* Slider dot indicators */
         .slider-dots {
             position: absolute;
             bottom: 20px;
@@ -289,27 +274,26 @@
             width: 24px;
             border-radius: 5px;
         }
-
-        /* Floating Video Styles - HANYA UNTUK HALAMAN BERITA */
+        
+        /* Floating Video */
         .floating-video {
             position: fixed;
             bottom: 30px;
             right: 30px;
             z-index: 999;
             background: white;
-            border-radius: 16px;
+            border-radius: 20px;
             overflow: hidden;
             box-shadow: 0 10px 30px rgba(0,0,0,0.25);
-            transition: all 0.3s ease;
             width: 300px;
+            animation: floatVideo 3.5s ease-in-out infinite;
         }
-
-        .floating-video video {
-            width: 100%;
-            display: block;
-            background: #000;
+        
+        @keyframes floatVideo {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-12px); }
         }
-
+        
         .video-header {
             background: linear-gradient(135deg, #f7c110, #fbaa1d);
             padding: 8px 12px;
@@ -320,49 +304,26 @@
             font-size: 12px;
             font-weight: bold;
         }
-
+        
         .video-header button {
             background: rgba(255,255,255,0.2);
             border: none;
             color: white;
-            width: 24px;
-            height: 24px;
-            border-radius: 6px;
+            width: 26px;
+            height: 26px;
+            border-radius: 8px;
             cursor: pointer;
-            font-size: 12px;
         }
-
-        .video-header button:hover {
-            background: rgba(255,255,255,0.4);
-        }
-
-        /* Efek mengambang seperti emoji */
-        @keyframes floatVideo {
-            0% {
-                transform: translateY(0px);
-            }
-            50% {
-                transform: translateY(-12px);
-            }
-            100% {
-                transform: translateY(0px);
-            }
-        }
-
-        .floating-video {
-            animation: floatVideo 3.5s ease-in-out infinite;
-        }
-
-        /* Tombol reopen video */
+        
         .video-reopen-btn {
             position: fixed;
             bottom: 30px;
             right: 30px;
             z-index: 999;
-            background: linear-gradient(135deg, oklch(75.14% 0.16026 69.613), lab(76.96% 17.83 75.26));
+            background: linear-gradient(135deg, #f59e0b, #d97706);
             color: white;
             border: none;
-            padding: 12px 18px;
+            padding: 12px 20px;
             border-radius: 50px;
             cursor: pointer;
             display: flex;
@@ -370,33 +331,36 @@
             gap: 8px;
             font-weight: bold;
             box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-            transition: all 0.3s;
             animation: floatVideo 3.5s ease-in-out infinite;
         }
-
-        .video-reopen-btn:hover {
-            transform: scale(1.05);
-        }
-
+        
         @media (max-width: 640px) {
-            .floating-video {
-                width: 250px;
-                bottom: 15px;
-                right: 15px;
-            }
-            .video-reopen-btn {
-                bottom: 15px;
-                right: 15px;
-                padding: 8px 14px;
-                font-size: 12px;
-            }
+            .floating-video { width: 260px; bottom: 15px; right: 15px; }
+            .video-reopen-btn { bottom: 15px; right: 15px; padding: 8px 16px; font-size: 12px; }
+            .hero-slider { height: 18rem; }
+        }
+        
+        .bg-amber-600-custom {
+            background-color: #d97706;
         }
     </style>
-    <link rel="icon" href="apple-icon-60x60.png" type="image/png">
 </head>
 <body class="bg-amber-50 font-sans">
+    <!-- LOADING SCREEN (bisa ganti icon dengan klik atau ganti gambar) -->
+    <div id="loading-screen">
+        <div class="loading-logo" id="loadingLogo">
+            <!-- Icon default bisa diubah dengan klik atau ganti gambar -->
+            <i class="fas fa-tree" id="loadingIcon"></i>
+        </div>
+        <div class="loading-bar-container">
+            <div class="loading-bar" id="loadingBar"></div>
+        </div>
+        <div class="loading-text">DEWAN PENGGALANG</div>
+        <div class="loading-sub">SMPIT PERMATA MOJOKERTO</div>
+    </div>
+
     <!-- Header -->
-    <header class="bg-amber-600 text-white sticky top-0 z-50 shadow-md">
+     <header class="bg-amber-600 text-white sticky top-0 z-50 shadow-md">
         <div class="container mx-auto px-4 py-3 flex justify-between items-center">
             <div class="flex items-center">
                <img src="https://images.unsplash.com/photo-1756298243047-12d8aecb407f?w=500" alt="Logo SMPIT PERMATA" class="w-12 h-12 mr-3 object-contain rounded-xl transition-all"/>
@@ -404,25 +368,25 @@
             </div>
             <nav class="hidden md:block">
                 <ul class="flex space-x-6">
-                    <li><a href="#home" class="nav-link hover:text-amber-300 transition-all" data-page="home">Home</a></li>
-                    <li><a href="#berita" class="nav-link hover:text-amber-300 transition-all" data-page="berita">Berita</a></li>
-                    <li><a href="#event" class="nav-link hover:text-amber-300 transition-all" data-page="event">Event</a></li>
-                    <li><a href="#divisi" class="nav-link hover:text-amber-300 transition-all" data-page="divisi">Divisi</a></li>
-                    <li><a href="#kontak" class="nav-link hover:text-amber-300 transition-all" data-page="kontak">Kontak</a></li>
+                    <li><a href="#home" class="nav-link hover:text-amber-200" data-page="home">Home</a></li>
+                    <li><a href="#berita" class="nav-link hover:text-amber-200" data-page="berita">Berita</a></li>
+                    <li><a href="#event" class="nav-link hover:text-amber-200" data-page="event">Event</a></li>
+                    <li><a href="#divisi" class="nav-link hover:text-amber-200" data-page="divisi">Divisi</a></li>
+                    <li><a href="#kontak" class="nav-link hover:text-amber-200" data-page="kontak">Kontak</a></li>
                 </ul>
             </nav>
             <button class="md:hidden text-2xl" id="mobile-menu-button">
                 <i class="fas fa-bars"></i>
             </button>
         </div>
-        <!-- Mobile Menu -->
-        <div class="md:hidden hidden bg-amber-600" id="mobile-menu">
-            <ul class="flex flex-col space-y-3 p-4">
-                <li><a href="#home" class="nav-link block hover:text-amber-300 transition-all" data-page="home">Home</a></li>
-                <li><a href="#berita" class="nav-link block hover:text-amber-300 transition-all" data-page="berita">Berita</a></li>
-                <li><a href="#event" class="nav-link block hover:text-amber-300 transition-all" data-page="event">Event</a></li>
-                <li><a href="#divisi" class="nav-link block hover:text-amber-300 transition-all" data-page="divisi">Divisi</a></li>
-                <li><a href="#kontak" class="nav-link block hover:text-amber-300 transition-all" data-page="kontak">Kontak</a></li>
+        <!-- Mobile Menu dengan animasi halus kebawah -->
+        <div id="mobile-menu">
+            <ul class="flex flex-col space-y-3">
+                <li><a href="#home" class="mobile-nav-link block hover:text-amber-200 py-2 px-4 rounded-lg hover:bg-amber-700 transition" data-page="home">🏠 Home</a></li>
+                <li><a href="#berita" class="mobile-nav-link block hover:text-amber-200 py-2 px-4 rounded-lg hover:bg-amber-700 transition" data-page="berita">📰 Berita</a></li>
+                <li><a href="#event" class="mobile-nav-link block hover:text-amber-200 py-2 px-4 rounded-lg hover:bg-amber-700 transition" data-page="event">📅 Event</a></li>
+                <li><a href="#divisi" class="mobile-nav-link block hover:text-amber-200 py-2 px-4 rounded-lg hover:bg-amber-700 transition" data-page="divisi">👥 Divisi</a></li>
+                <li><a href="#kontak" class="mobile-nav-link block hover:text-amber-200 py-2 px-4 rounded-lg hover:bg-amber-700 transition" data-page="kontak">📞 Kontak</a></li>
             </ul>
         </div>
     </header>
@@ -625,7 +589,7 @@ Kerja keras, Kekompakkan, dan semangat juang membuahkan hasil yang membanggakan.
 
 <!-- Tombol untuk membuka video kembali jika ditutup -->
 <button id="reopenVideoBtn" class="video-reopen-btn" style="display: none;">
-    <i class="fas fa-video"></i> Buka Video moment
+    <i class="fas fa-video"></i> Buka Video Pramuka
 </button>
             </button>
         </section>
@@ -934,99 +898,104 @@ Kerja keras, Kekompakkan, dan semangat juang membuahkan hasil yang membanggakan.
     </footer>
 
     <script>
-        // Mobile menu toggle
-        document.getElementById('mobile-menu-button').addEventListener('click', function() {
-            document.getElementById('mobile-menu').classList.toggle('hidden');
+        // ========== LOADING SCREEN 3 DETIK + GANTI ICON ==========
+       let progress = 0;
+const loadingBar = document.getElementById('loadingBar');
+const loadingScreen = document.getElementById('loading-screen');
+const loadingLogoDiv = document.getElementById('loadingLogo');
+
+// Logo tetap dari URL admin
+const img = document.createElement('img');
+img.src = 'https://images.unsplash.com/photo-1756298243047-12d8aecb407f?w=500'; // Ganti dengan URL logo
+img.style.width = '70%';
+img.style.height = '70%';
+img.style.objectFit = 'contain';
+
+loadingLogoDiv.innerHTML = '';
+loadingLogoDiv.appendChild(img);
+
+const interval = setInterval(() => {
+    progress += Math.random() * 12;
+    if (progress >= 100) {
+        progress = 100;
+        clearInterval(interval);
+        setTimeout(() => {
+            loadingScreen.style.opacity = '0';
+            setTimeout(() => {
+                loadingScreen.style.display = 'none';
+            }, 800);
+        }, 200);
+    }
+    loadingBar.style.width = Math.min(progress, 100) + '%';
+}, 280);
+
+setTimeout(() => {
+    if (progress < 100) {
+        clearInterval(interval);
+        loadingBar.style.width = '100%';
+        setTimeout(() => {
+            loadingScreen.style.opacity = '0';
+            setTimeout(() => {
+                loadingScreen.style.display = 'none';
+            }, 800);
+        }, 200);
+    }
+}, 3000);
+        
+        // ========== MOBILE MENU ANIMASI HALUS KEBAWAH ==========
+        const mobileBtn = document.getElementById('mobile-menu-button');
+        const mobileMenuDiv = document.getElementById('mobile-menu');
+        mobileBtn.addEventListener('click', () => {
+            mobileMenuDiv.classList.toggle('show');
+            const icon = mobileBtn.querySelector('i');
+            if (mobileMenuDiv.classList.contains('show')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            } else {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
         });
         
-        // Page navigation
-        document.querySelectorAll('.nav-link').forEach(link => {
+        // ========== PAGE NAVIGATION ==========
+        document.querySelectorAll('.nav-link, .mobile-nav-link').forEach(link => {
             link.addEventListener('click', function(e) {
                 e.preventDefault();
-                document.querySelectorAll('.page').forEach(page => page.classList.add('hidden'));
-                const pageId = this.getAttribute('data-page') + '-page';
-                document.getElementById(pageId).classList.remove('hidden');
-                document.querySelectorAll('.nav-link').forEach(navLink => navLink.classList.remove('active'));
-                this.classList.add('active');
-                document.getElementById('mobile-menu').classList.add('hidden');
-                window.scrollTo(0, 0);
+                const pageName = this.getAttribute('data-page');
+                if (!pageName) return;
+                document.querySelectorAll('.page').forEach(p => p.classList.add('hidden'));
+                document.getElementById(`${pageName}-page`).classList.remove('hidden');
+                document.querySelectorAll('.nav-link').forEach(nav => nav.classList.remove('active'));
+                document.querySelectorAll(`.nav-link[data-page="${pageName}"]`).forEach(n => n.classList.add('active'));
+                mobileMenuDiv.classList.remove('show');
+                const icon = mobileBtn.querySelector('i');
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
             });
         });
-        document.querySelector('[data-page="home"]').classList.add('active');
+        document.querySelector('.nav-link[data-page="home"]').classList.add('active');
         
-        // Hero Slider Functionality
+        // ========== SLIDER ==========
         const slides = document.querySelectorAll('.slide');
         const dots = document.querySelectorAll('.dot');
-        let currentSlide = 0;
-        let slideInterval;
-        
-        function showSlide(index) {
-            slides.forEach(slide => slide.classList.remove('active'));
-            dots.forEach(dot => dot.classList.remove('active'));
-            
-            slides[index].classList.add('active');
-            dots[index].classList.add('active');
-            currentSlide = index;
-        }
-        
-        function nextSlide() {
-            let next = (currentSlide + 1) % slides.length;
-            showSlide(next);
-        }
-        
-        function startSlider() {
-            slideInterval = setInterval(nextSlide, 4000);
-        }
-        
-        function stopSlider() {
-            if (slideInterval) {
-                clearInterval(slideInterval);
-            }
-        }
-        
-        // Add click event to dots
-        dots.forEach((dot, index) => {
-            dot.addEventListener('click', () => {
-                stopSlider();
-                showSlide(index);
-                startSlider();
-            });
-        });
-        
-        // Pause slider on hover
-        const heroSlider = document.querySelector('.hero-slider');
-        heroSlider.addEventListener('mouseenter', stopSlider);
-        heroSlider.addEventListener('mouseleave', startSlider);
-        
-        // Start the slider
+        let current = 0, slideInterval;
+        function showSlide(i) { slides.forEach(s => s.classList.remove('active')); dots.forEach(d => d.classList.remove('active')); slides[i].classList.add('active'); dots[i].classList.add('active'); current = i; }
+        function nextSlide() { showSlide((current + 1) % slides.length); }
+        function startSlider() { slideInterval = setInterval(nextSlide, 4500); }
+        function stopSlider() { clearInterval(slideInterval); }
+        dots.forEach((dot, idx) => { dot.addEventListener('click', () => { stopSlider(); showSlide(idx); startSlider(); }); });
+        const sliderContainer = document.querySelector('.hero-slider');
+        sliderContainer.addEventListener('mouseenter', stopSlider);
+        sliderContainer.addEventListener('mouseleave', startSlider);
         startSlider();
-
-        // ========== FLOATING VIDEO FUNCTIONALITY ==========
-        const floatingVideo = document.getElementById('floatingVideo');
-        const closeVideoBtn = document.getElementById('closeVideoBtn');
-        const reopenVideoBtn = document.getElementById('reopenVideoBtn');
         
-        // Sembunyikan video saat tombol close diklik
-        closeVideoBtn.addEventListener('click', function() {
-            floatingVideo.style.display = 'none';
-            reopenVideoBtn.style.display = 'flex';
-        });
-        
-        // Tampilkan video kembali saat tombol reopen diklik
-        reopenVideoBtn.addEventListener('click', function() {
-            floatingVideo.style.display = 'block';
-            reopenVideoBtn.style.display = 'none';
-        });
-        
-        // ========== CARA MENGGANTI VIDEO ==========
-        // Ganti URL video di bawah ini dengan URL video Anda
-        const videoElement = document.getElementById('scoutVideo');
-        videoElement.src = "https://go.screenpal.com/watch/cO1hjanu2CJ";
-        // Contoh: videoElement.src = "https://example.com/video-pramuka.mp4";
-        // Biarkan kosong dulu, nanti Anda isi sendiri
-        
-        // Catatan: Video akan tampil mengambang (floating) dengan animasi naik turun
-        // seperti emoji 🏆🎗️✨ yang diminta
+        // ========== FLOATING VIDEO ==========
+        const floatVideo = document.getElementById('floatingVideo');
+        const closeVideo = document.getElementById('closeVideoBtn');
+        const reopenVideo = document.getElementById('reopenVideoBtn');
+        if (closeVideo) closeVideo.addEventListener('click', () => { floatVideo.style.display = 'none'; reopenVideo.style.display = 'flex'; });
+        if (reopenVideo) reopenVideo.addEventListener('click', () => { floatVideo.style.display = 'block'; reopenVideo.style.display = 'none'; });
     </script>
 </body>
 </html>
